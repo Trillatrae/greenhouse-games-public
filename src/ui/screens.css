@@ -454,6 +454,9 @@
   font-style: italic;
 }
 
+.reveal-value { color: var(--accent-green); }
+.reveal-value-warn { color: var(--warning); }
+
 /* Toast for not-yet-built apps */
 .toast {
   position: fixed;

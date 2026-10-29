@@ -106,9 +106,18 @@ export function voicemailDetail({ leadId, onBack, onCallBack, onSave, onBlock })
       el('div', { class: 'callout', style: 'margin-top:12px' }, [
         el('div', { class: 'callout-label' }, '✦ ' + t('phone.unlocked_title')),
         el('div', { class: 'callout-body' }, [
-          el('div', {}, '• Location: ' + bold(reveals.location)),
-          el('div', {}, '• Urgency: ' + reveals.urgency),
-          el('div', {}, '• Likely scope: ' + reveals.scope),
+          el('div', {}, [
+            '• Location: ',
+            el('span', { class: 'reveal-value' }, reveals.location || ''),
+          ]),
+          el('div', {}, [
+            '• Urgency: ',
+            el('span', { class: 'reveal-value-warn' }, reveals.urgency || ''),
+          ]),
+          el('div', {}, [
+            '• Likely scope: ',
+            el('span', { class: 'reveal-value' }, reveals.scope || ''),
+          ]),
         ]),
       ]),
     ]),
@@ -120,11 +129,6 @@ function actionButton(labelKey, glyph, onClick) {
     el('div', { class: 'action-circle' }, glyph),
     el('span', { class: 'action-label' }, t(`phone.actions.${labelKey}`)),
   ]);
-}
-
-function bold(text) {
-  const span = el('span', { style: 'color:#4ade80' }, text || '');
-  return span;
 }
 
 function waveform() {
