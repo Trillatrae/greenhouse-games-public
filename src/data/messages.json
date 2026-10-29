@@ -1,0 +1,49 @@
+{
+  "threads": [
+    {
+      "id": "steph-office",
+      "contactId": "steph",
+      "contactName": "Steph (office)",
+      "online": true,
+      "instinctLevel": 2,
+      "instinctTrack": "7/8",
+      "lastReadAt": "day0-23:00",
+      "unreadCount": 2,
+      "messages": [
+        {
+          "id": "m1",
+          "from": "steph",
+          "sentAt": "day0-17:14",
+          "dateLabel": "YESTERDAY · 5:14 PM",
+          "body": "emailed you three new leads. one looks real, two are tire kickers"
+        },
+        {
+          "id": "m2",
+          "from": "me",
+          "sentAt": "day0-17:16",
+          "body": "which is the real one"
+        },
+        {
+          "id": "m3",
+          "from": "steph",
+          "sentAt": "day0-17:17",
+          "body": "patel. referral from lori. actually knows what she wants"
+        },
+        {
+          "id": "m4",
+          "from": "steph",
+          "sentAt": "day1-06:12",
+          "dateLabel": "TODAY · 6:12 AM",
+          "body": "treehouse lady called back. she's serious this time. wants a quote by friday 🌳"
+        },
+        {
+          "id": "m5",
+          "from": "steph",
+          "sentAt": "day1-06:14",
+          "body": "also heads up — that 770 number has called 3x. not in any system i can find. feels off",
+          "flag": "instinct"
+        }
+      ]
+    }
+  ]
+}

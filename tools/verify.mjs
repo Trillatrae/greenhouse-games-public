@@ -45,6 +45,30 @@ for (const lead of leadsFile.leads || []) {
 }
 if (seenIds.size > 0) pass(`leads: ${seenIds.size} unique ids`);
 
+// --- 1b. Messages integrity ---
+section('messages');
+const messagesFile = JSON.parse(readFileSync(resolve(ROOT, 'src/data/messages.json'), 'utf8'));
+if (!Array.isArray(messagesFile.threads)) {
+  fail('messages: missing threads[] array');
+} else {
+  pass(`messages: ${messagesFile.threads.length} thread(s)`);
+}
+
+for (const th of messagesFile.threads || []) {
+  if (!th.id) fail('message thread: missing id');
+  if (!Array.isArray(th.messages) || th.messages.length === 0) {
+    fail(`thread ${th.id}: must have ≥1 message`);
+  }
+  for (const m of th.messages || []) {
+    if (!m.id || !m.from || !m.body) {
+      fail(`thread ${th.id}: message missing id/from/body`);
+    }
+    if (!['me', 'steph', 'trevor', 'trae'].includes(m.from)) {
+      fail(`thread ${th.id}: unknown sender "${m.from}"`);
+    }
+  }
+}
+
 // --- 2. i18n keys referenced by leads must exist in en.json ---
 section('i18n');
 const en = JSON.parse(readFileSync(resolve(ROOT, 'src/i18n/en.json'), 'utf8'));

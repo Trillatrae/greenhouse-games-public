@@ -5,14 +5,14 @@ import { el, statusBar } from '../ui/components.js';
 import { t } from '../i18n/t.js';
 
 const APPS = [
-  { id: 'phone',    label: 'Phone',    color: '#22863a', text: '#fff',   badge: 3, icon: '📞' },
-  { id: 'messages', label: 'Messages', color: '#4ade80', text: '#0a0a0a', badge: 2, icon: '💬' },
-  { id: 'mail',     label: 'Mail',     color: '#f5f5f0', text: '#22863a', badge: 1, icon: '✉' },
-  { id: 'weather',  label: 'Weather',  color: '#1a2744', text: '#f5f5f0', badge: 0, icon: '☁' },
-  { id: 'maps',     label: 'Maps',     color: '#22863a', text: '#fff',   badge: 0, icon: '📍' },
-  { id: 'camera',   label: 'Camera',   color: '#f5f5f0', text: '#0a0a0a', badge: 0, icon: '📷' },
-  { id: 'reviews',  label: 'Reviews',  color: '#1a1a1a', text: '#666',   badge: 0, icon: '★' },
-  { id: 'bank',     label: 'Bank',     color: '#22863a', text: '#f5f5f0', badge: 0, icon: '🏦' },
+  { id: 'phone',    label: 'Phone',    color: '#22863a', text: '#fff',   badge: 3, icon: '📞', live: true  },
+  { id: 'messages', label: 'Messages', color: '#4ade80', text: '#0a0a0a', badge: 2, icon: '💬', live: true  },
+  { id: 'mail',     label: 'Mail',     color: '#f5f5f0', text: '#22863a', badge: 1, icon: '✉', live: false },
+  { id: 'weather',  label: 'Weather',  color: '#1a2744', text: '#f5f5f0', badge: 0, icon: '☁', live: false },
+  { id: 'maps',     label: 'Maps',     color: '#22863a', text: '#fff',   badge: 0, icon: '📍', live: false },
+  { id: 'camera',   label: 'Camera',   color: '#f5f5f0', text: '#0a0a0a', badge: 0, icon: '📷', live: false },
+  { id: 'reviews',  label: 'Reviews',  color: '#1a1a1a', text: '#666',   badge: 0, icon: '★', live: false },
+  { id: 'bank',     label: 'Bank',     color: '#22863a', text: '#f5f5f0', badge: 0, icon: '🏦', live: false },
 ];
 
 export function homeScreen({ onOpenApp, onToast }) {
@@ -20,7 +20,7 @@ export function homeScreen({ onOpenApp, onToast }) {
     APPS.map((a) =>
       el('button', {
         class: 'app-tile',
-        onclick: () => (a.id === 'phone' ? onOpenApp(a.id) : onToast(a.label + ' — coming next phase')),
+        onclick: () => (a.live ? onOpenApp(a.id) : onToast(a.label + ' — coming next phase')),
       }, [
         el('div', {
           class: 'app-icon',
@@ -35,12 +35,13 @@ export function homeScreen({ onOpenApp, onToast }) {
   );
 
   const dock = el('div', { class: 'home-dock' },
-    ['phone', 'messages', 'mail', 'camera'].map((id) =>
-      el('button', {
+    ['phone', 'messages', 'mail', 'camera'].map((id) => {
+      const app = APPS.find((a) => a.id === id);
+      return el('button', {
         class: 'dock-icon',
-        onclick: () => (id === 'phone' ? onOpenApp(id) : onToast(id + ' — coming next phase')),
-      }, APPS.find((a) => a.id === id).icon)
-    )
+        onclick: () => (app.live ? onOpenApp(id) : onToast(app.label + ' — coming next phase')),
+      }, app.icon);
+    })
   );
 
   return el('div', { class: 'screen home-screen' }, [

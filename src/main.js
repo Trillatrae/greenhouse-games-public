@@ -9,6 +9,7 @@ import { el, phoneFrame } from './ui/components.js';
 import { lockScreen } from './phone/lock-screen.js';
 import { homeScreen } from './phone/home-screen.js';
 import { phoneRecents, voicemailDetail } from './apps/phone/phone-app.js';
+import { messagesInbox, messagesThread } from './apps/messages/messages-app.js';
 import { load, save, newState } from './state/save.js';
 
 // --- state ---
@@ -49,9 +50,22 @@ function render() {
       screen = homeScreen({
         onOpenApp: (appId) => {
           if (appId === 'phone') go('phone');
+          else if (appId === 'messages') go('messages');
           else toast(appId + ' — coming next phase');
         },
         onToast: toast,
+      });
+      break;
+    case 'messages':
+      screen = messagesInbox({
+        onOpenThread: (threadId) => go('thread', { threadId }),
+        onBack: () => go('home'),
+      });
+      break;
+    case 'thread':
+      screen = messagesThread({
+        threadId: currentArgs.threadId,
+        onBack: () => go('messages'),
       });
       break;
     case 'phone':
