@@ -1,0 +1,34 @@
+{
+  "location": "Athens, GA",
+  "now": {
+    "temp": 66,
+    "condition": "Partly cloudy",
+    "hi": 74,
+    "lo": 52,
+    "wind_mph": 6,
+    "ground": "firm"
+  },
+  "install_window": {
+    "label": "install window",
+    "openDays": 3,
+    "summary": "Front moving in sat night. Glazing done by friday or push to next week.",
+    "days": [
+      { "key": "wed", "label": "Wed", "state": "open" },
+      { "key": "thu", "label": "Thu", "state": "open" },
+      { "key": "fri", "label": "Fri", "state": "open" },
+      { "key": "sat", "label": "Sat", "state": "marginal" },
+      { "key": "sun", "label": "Sun", "state": "killed" },
+      { "key": "mon", "label": "Mon", "state": "killed" },
+      { "key": "tue", "label": "Tue", "state": "unknown" }
+    ]
+  },
+  "forecast": [
+    { "day": "Today", "state": "open",     "icon": "cloud",     "lo": 52, "hi": 74 },
+    { "day": "Thu",   "state": "open",     "icon": "sun",       "lo": 54, "hi": 76 },
+    { "day": "Fri",   "state": "open",     "icon": "cloud",     "lo": 56, "hi": 72 },
+    { "day": "Sat",   "state": "marginal", "icon": "storm",     "lo": 58, "hi": 68 },
+    { "day": "Sun",   "state": "killed",   "icon": "rain",      "lo": 48, "hi": 61 },
+    { "day": "Mon",   "state": "killed",   "icon": "rain",      "lo": 46, "hi": 58 },
+    { "day": "Tue",   "state": "unknown",  "icon": "cloud",     "lo": 50, "hi": 70 }
+  ]
+}

@@ -70,5 +70,16 @@
     "no_cues": "No scoping cues on this one.",
     "fast_reply_tag": "FAST REPLY",
     "sent_label": "Sent"
+  },
+  "weather": {
+    "title": "Weather",
+    "forecast_label": "7-day forecast",
+    "install_window_body": "open · {n} days",
+    "wind_label": "Wind",
+    "wind_safe": "glass-safe (< 15)",
+    "wind_warn": "wait on glazing",
+    "ground_label": "Ground",
+    "ground_firm": "truck can park anywhere",
+    "ground_soft": "watch for ruts"
   }
 }

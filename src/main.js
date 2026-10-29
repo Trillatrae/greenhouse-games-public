@@ -11,6 +11,7 @@ import { homeScreen } from './phone/home-screen.js';
 import { phoneRecents, voicemailDetail } from './apps/phone/phone-app.js';
 import { messagesInbox, messagesThread } from './apps/messages/messages-app.js';
 import { mailInbox, mailDetail } from './apps/mail/mail-app.js';
+import { weatherApp } from './apps/weather/weather-app.js';
 import { load, save, newState } from './state/save.js';
 
 // --- state ---
@@ -53,6 +54,7 @@ function render() {
           if (appId === 'phone') go('phone');
           else if (appId === 'messages') go('messages');
           else if (appId === 'mail') go('mail');
+          else if (appId === 'weather') go('weather');
           else toast(appId + ' — coming next phase');
         },
         onToast: toast,
@@ -84,6 +86,9 @@ function render() {
         onReply: () => toast('Reply composer — coming next'),
         onToast: toast,
       });
+      break;
+    case 'weather':
+      screen = weatherApp({ onBack: () => go('home') });
       break;
     case 'phone':
       screen = phoneRecents({

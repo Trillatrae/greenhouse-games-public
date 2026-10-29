@@ -91,6 +91,27 @@ for (const em of mailFile.emails || []) {
   }
 }
 
+// --- 1d. Weather integrity ---
+section('weather');
+const weatherFile = JSON.parse(readFileSync(resolve(ROOT, 'src/data/weather.json'), 'utf8'));
+if (!weatherFile.install_window || !Array.isArray(weatherFile.install_window.days)) {
+  fail('weather: missing install_window.days[]');
+} else if (weatherFile.install_window.days.length !== 7) {
+  fail(`weather: install window must be 7 days, got ${weatherFile.install_window.days.length}`);
+} else {
+  pass('weather: 7-day install window present');
+}
+if (!Array.isArray(weatherFile.forecast) || weatherFile.forecast.length !== 7) {
+  fail('weather: forecast must be 7 days');
+} else {
+  pass('weather: 7-day forecast present');
+}
+for (const d of (weatherFile.install_window?.days || [])) {
+  if (!['open', 'marginal', 'killed', 'unknown'].includes(d.state)) {
+    fail(`weather: invalid day state "${d.state}"`);
+  }
+}
+
 // --- 2. i18n keys referenced by leads must exist in en.json ---
 section('i18n');
 const en = JSON.parse(readFileSync(resolve(ROOT, 'src/i18n/en.json'), 'utf8'));
