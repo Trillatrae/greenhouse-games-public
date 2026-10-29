@@ -10,7 +10,31 @@ export function siteVisitScoping({ visitId, onComplete, onBack }) {
   if (!visit) throw new Error('site visit not found: ' + visitId);
 
   const picked = new Set();
-  const node = el('div', { class: 'screen site-visit' }, [
+
+  // Build refs first, assemble second — closures over refs stay valid.
+  const refs = {};
+
+  refs.counter = el('div', { class: 'cards-counter-right' },
+    t('site_visit.picked_counter', { picked: 0, total: visit.pickCount }));
+
+  refs.askBtn = el('div', {
+    class: 'phone-cta phone-cta-flat cards-ask-btn',
+    style: 'opacity: 0.5; pointer-events: none;',
+    onclick: () => {
+      if (picked.size === visit.pickCount) {
+        onComplete(visitId, Array.from(picked));
+      }
+    },
+  }, t('site_visit.ask_cta'));
+
+  const cardNodes = visit.scoping_cards.map((card) =>
+    scopingCard(card, picked, visit.pickCount, refs)
+  );
+  refs.cardNodes = cardNodes;
+
+  refs.grid = el('div', { class: 'cards-grid' }, cardNodes);
+
+  return el('div', { class: 'screen site-visit' }, [
     statusBar('10:04'),
     el('div', { class: 'site-visit-eyebrow-row' }, [
       el('div', { class: 'screen-eyebrow site-visit-eyebrow' },
@@ -32,28 +56,14 @@ export function siteVisitScoping({ visitId, onComplete, onBack }) {
     el('div', { class: 'cards-counter-row' }, [
       el('div', { class: 'cards-counter-left' },
         '🂠 ' + t('site_visit.cards_hint', { picked: visit.pickCount, total: visit.scoping_cards.length })),
-      el('div', { class: 'cards-counter-right', id: 'cards-counter' },
-        t('site_visit.picked_counter', { picked: 0, total: visit.pickCount })),
+      refs.counter,
     ]),
-    el('div', { class: 'cards-grid', id: 'cards-grid' },
-      visit.scoping_cards.map((card) => scopingCard(card, picked, visit.pickCount, node))
-    ),
-    el('div', {
-      class: 'phone-cta phone-cta-flat cards-ask-btn',
-      id: 'cards-ask-btn',
-      style: 'opacity: 0.5; pointer-events: none;',
-      onclick: () => {
-        if (picked.size === visit.pickCount) {
-          onComplete(visitId, Array.from(picked));
-        }
-      },
-    }, t('site_visit.ask_cta')),
+    refs.grid,
+    refs.askBtn,
   ]);
-
-  return node;
 }
 
-function scopingCard(card, pickedSet, max, rootNode) {
+function scopingCard(card, pickedSet, max, refs) {
   const cardNode = el('div', {
     class: 'scoping-card',
     onclick: () => {
@@ -65,7 +75,7 @@ function scopingCard(card, pickedSet, max, rootNode) {
       } else {
         return; // soft rejection — already at max
       }
-      updatePickedUi(rootNode, pickedSet, max);
+      updatePickedUi(refs, pickedSet, max);
     },
   }, [
     el('div', { class: 'scoping-card-head' }, [
@@ -78,20 +88,20 @@ function scopingCard(card, pickedSet, max, rootNode) {
   return cardNode;
 }
 
-function updatePickedUi(rootNode, pickedSet, max) {
-  const grid = rootNode.querySelector('#cards-grid');
-  const counter = rootNode.querySelector('#cards-counter');
-  const askBtn = rootNode.querySelector('#cards-ask-btn');
-  if (!grid || !counter || !askBtn) return;
+function updatePickedUi(refs, pickedSet, max) {
+  if (!refs || !refs.cardNodes) return;
 
-  grid.querySelectorAll('.scoping-card').forEach((cardEl) => {
+  refs.cardNodes.forEach((cardEl) => {
     cardEl.classList.toggle('scoping-card-picked', pickedSet.has(cardEl.dataset.cardId));
   });
-  counter.textContent = t('site_visit.picked_counter', { picked: pickedSet.size, total: max });
-
+  if (refs.counter) {
+    refs.counter.textContent = t('site_visit.picked_counter', { picked: pickedSet.size, total: max });
+  }
   const ready = pickedSet.size === max;
-  askBtn.style.opacity = ready ? '1' : '0.5';
-  askBtn.style.pointerEvents = ready ? 'auto' : 'none';
+  if (refs.askBtn) {
+    refs.askBtn.style.opacity = ready ? '1' : '0.5';
+    refs.askBtn.style.pointerEvents = ready ? 'auto' : 'none';
+  }
 }
 
 export function siteRead({ visitId, pickedIds, onContinue, onBack }) {

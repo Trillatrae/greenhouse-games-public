@@ -47,12 +47,29 @@ function render() {
   const root = document.getElementById('app');
   root.innerHTML = '';
   let screen;
+  try {
+    screen = buildScreen();
+  } catch (err) {
+    console.error('Scene build failed in "' + current + '":', err);
+    screen = el('div', { class: 'screen', style: 'padding: 40px 20px; color: #e24b4a;' }, [
+      el('div', { style: 'font-size: 14px; margin-bottom: 10px;' }, 'Something broke in: ' + current),
+      el('div', { style: 'font-size: 11px; color: #999; line-height: 1.5;' }, err.message || String(err)),
+      el('div', {
+        class: 'phone-cta phone-cta-flat',
+        style: 'margin-top: 20px;',
+        onclick: () => go('home'),
+      }, 'Back to Home'),
+    ]);
+  }
+  root.append(phoneFrame(screen));
+}
+
+function buildScreen() {
   switch (current) {
     case 'lock':
-      screen = lockScreen({ onUnlock: () => go('home') });
-      break;
+      return lockScreen({ onUnlock: () => go('home') });
     case 'home':
-      screen = homeScreen({
+      return homeScreen({
         onOpenApp: (appId) => {
           if (appId === 'phone') go('phone');
           else if (appId === 'messages') go('messages');
@@ -63,50 +80,60 @@ function render() {
         },
         onToast: toast,
       });
-      break;
+    case 'phone':
+      return phoneRecents({
+        onOpenVoicemail: (leadId) => go('voicemail', { leadId }),
+        onBack: () => go('home'),
+        seenVoicemails: state.seenVoicemails,
+      });
+    case 'voicemail':
+      if (!state.seenVoicemails.includes(currentArgs.leadId)) {
+        state.seenVoicemails.push(currentArgs.leadId);
+        save(state);
+      }
+      return voicemailDetail({
+        leadId: currentArgs.leadId,
+        onBack: () => go('phone'),
+        onCallBack: () => toast('Call back — coming next phase'),
+        onSave: () => toast('Save contact — coming next phase'),
+        onBlock: () => toast('Block number — coming next phase'),
+      });
     case 'messages':
-      screen = messagesInbox({
+      return messagesInbox({
         onOpenThread: (threadId) => go('thread', { threadId }),
         onBack: () => go('home'),
       });
-      break;
     case 'thread':
-      screen = messagesThread({
+      return messagesThread({
         threadId: currentArgs.threadId,
         onBack: () => go('messages'),
       });
-      break;
     case 'mail':
-      screen = mailInbox({
+      return mailInbox({
         onOpenEmail: (emailId) => go('email', { emailId }),
         onBack: () => go('home'),
       });
-      break;
     case 'email':
-      screen = mailDetail({
+      return mailDetail({
         emailId: currentArgs.emailId,
         onBack: () => go('mail'),
         onCta: (emailId) => {
-          // Patel's "Book site visit" opens Maps with the Patel route.
           if (emailId === 'patel-referral') go('maps');
           else toast('Reply flow — coming next phase');
         },
         onReply: () => toast('Reply composer — coming next'),
         onToast: toast,
       });
-      break;
     case 'weather':
-      screen = weatherApp({ onBack: () => go('home') });
-      break;
+      return weatherApp({ onBack: () => go('home') });
     case 'maps':
-      screen = mapsApp({
+      return mapsApp({
         routeId: 'home-to-patel',
         onBack: () => go('home'),
         onStartDrive: (routeId) => go('drive', { routeId }),
       });
-      break;
     case 'drive':
-      screen = driveScene({
+      return driveScene({
         routeId: currentArgs.routeId,
         onEventChoice: (choiceId) => {
           const messages = {
@@ -119,47 +146,22 @@ function render() {
         onArrive: () => go('site-visit', { visitId: 'patel-watkinsville' }),
         onToast: toast,
       });
-      break;
     case 'site-visit':
-      screen = siteVisitScoping({
+      return siteVisitScoping({
         visitId: currentArgs.visitId,
         onComplete: (visitId, pickedIds) => go('site-read', { visitId, pickedIds }),
         onBack: () => go('home'),
       });
-      break;
     case 'site-read':
-      screen = siteRead({
+      return siteRead({
         visitId: currentArgs.visitId,
         pickedIds: currentArgs.pickedIds || [],
         onContinue: () => toast('Quote write-up — coming in Phase 4'),
         onBack: () => go('home'),
       });
-      break;
-    case 'phone':
-      screen = phoneRecents({
-        onOpenVoicemail: (leadId) => go('voicemail', { leadId }),
-        onBack: () => go('home'),
-        seenVoicemails: state.seenVoicemails,
-      });
-      break;
-    case 'voicemail':
-      // Mark it seen the moment the detail opens.
-      if (!state.seenVoicemails.includes(currentArgs.leadId)) {
-        state.seenVoicemails.push(currentArgs.leadId);
-        save(state);
-      }
-      screen = voicemailDetail({
-        leadId: currentArgs.leadId,
-        onBack: () => go('phone'),
-        onCallBack: () => toast('Call back — coming next phase'),
-        onSave: () => toast('Save contact — coming next phase'),
-        onBlock: () => toast('Block number — coming next phase'),
-      });
-      break;
     default:
-      screen = el('div', {}, 'Unknown screen: ' + current);
+      return el('div', {}, 'Unknown screen: ' + current);
   }
-  root.append(phoneFrame(screen));
 }
 
 // --- boot ---
