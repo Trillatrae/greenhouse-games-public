@@ -803,8 +803,9 @@
 }
 
 .mail-detail-body {
-  padding: 14px 20px;
-  flex: 1;
+  padding: 14px 20px 20px;
+  flex: 1 1 0;
+  min-height: 0;
   overflow-y: auto;
 }
 .mail-paragraph {
@@ -828,6 +829,8 @@
   display: flex;
   gap: 8px;
   border-top: 0.5px solid var(--border);
+  flex-shrink: 0;
+  background: var(--surface-0);
 }
 .mail-detail-footer .phone-cta-flat {
   flex: 1;
