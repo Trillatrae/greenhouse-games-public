@@ -81,5 +81,38 @@
     "ground_label": "Ground",
     "ground_firm": "truck can park anywhere",
     "ground_soft": "watch for ruts"
+  },
+  "maps": {
+    "title": "Maps",
+    "to_label": "To {dest}",
+    "eta_label": "Arrives",
+    "fuel_label": "Fuel",
+    "trailer_label": "Trailer",
+    "trailer_not_needed": "not needed",
+    "trailer_loaded": "loaded",
+    "start_drive": "Start drive",
+    "slowdown_label": "{label}",
+    "slowdown_body": "Backup near Dacula. +8 min. Leave by {leave} to still arrive {arrive}."
+  },
+  "drive": {
+    "en_route": "En route · {dest}",
+    "pull_over": "Pull over",
+    "hands_free": "Hands-free",
+    "event_ahead": "event ahead · 0.4 mi",
+    "event_label": "Event · roadside",
+    "pick_in": "pick in {n}s · default: keep driving",
+    "arrived": "Arrived at {dest}"
+  },
+  "site_visit": {
+    "eyebrow": "Site visit · {client}",
+    "greeting_prefix": "{initials}",
+    "cards_hint": "Scoping cards · pick {picked} of {total}",
+    "ask_cta": "Ask selected questions",
+    "picked_counter": "{picked} / {total}",
+    "site_read_eyebrow": "Site read · {client}",
+    "site_read_title": "What you learned",
+    "scope_read_label": "Scope read",
+    "not_asked_prefix": "not asked",
+    "write_quote": "Write up the quote"
   }
 }

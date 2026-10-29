@@ -41,10 +41,15 @@ const required = [
   'src/apps/messages/messages-app.js',
   'src/apps/mail/mail-app.js',
   'src/apps/weather/weather-app.js',
+  'src/apps/maps/maps-app.js',
+  'src/scenes/drive/drive-scene.js',
+  'src/scenes/site-visit/site-visit.js',
   'src/data/leads.json',
   'src/data/messages.json',
   'src/data/mail.json',
   'src/data/weather.json',
+  'src/data/routes.json',
+  'src/data/site-visits.json',
 ];
 for (const f of required) {
   if (existsSync(resolve(ROOT, f))) pass(f);
@@ -64,6 +69,10 @@ for (const needle of [
   'mailInbox',
   'mailDetail',
   'weatherApp',
+  'mapsApp',
+  'driveScene',
+  'siteVisitScoping',
+  'siteRead',
   "case 'lock'",
   "case 'home'",
   "case 'phone'",
@@ -73,6 +82,10 @@ for (const needle of [
   "case 'mail'",
   "case 'email'",
   "case 'weather'",
+  "case 'maps'",
+  "case 'drive'",
+  "case 'site-visit'",
+  "case 'site-read'",
 ]) {
   if (main.includes(needle)) pass(`main.js wires ${needle}`);
   else fail(`main.js missing ${needle}`);
@@ -100,6 +113,9 @@ const screens = [
   'src/apps/messages/messages-app.js',
   'src/apps/mail/mail-app.js',
   'src/apps/weather/weather-app.js',
+  'src/apps/maps/maps-app.js',
+  'src/scenes/drive/drive-scene.js',
+  'src/scenes/site-visit/site-visit.js',
 ];
 let hardCoded = 0;
 for (const path of screens) {

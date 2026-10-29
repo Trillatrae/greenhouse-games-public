@@ -1,0 +1,76 @@
+{
+  "visits": {
+    "patel-watkinsville": {
+      "clientInitials": "MP",
+      "clientName": "Maya Patel",
+      "city": "Watkinsville, GA · back lot",
+      "greeting": "\"Thanks for coming out. The spot's over here — I'll walk you back.\"",
+      "scoping_cards": [
+        {
+          "id": "sun",
+          "icon": "☀",
+          "label": "Sun exposure",
+          "hint": "Which direction does this spot face? How many hours of sun?",
+          "reveal": {
+            "text": "South-facing, 8+ hours. Tree line's 60 ft off, won't shade.",
+            "tone": "good"
+          }
+        },
+        {
+          "id": "drainage",
+          "icon": "💧",
+          "label": "Drainage",
+          "hint": "Does this spot hold water after rain? Creek level?",
+          "reveal": {
+            "text": "\"It pools when it rains hard.\" Creek rises 2-3 ft in storms. Needs raised pad + drainage trench.",
+            "tone": "warn"
+          }
+        },
+        {
+          "id": "power-water",
+          "icon": "⚡",
+          "label": "Power + water",
+          "hint": "Nearest hose bib? Nearest 120V outlet?",
+          "reveal": {
+            "text": "Hose bib 20 ft from pad. Outlet needs an extension — flag for electrician.",
+            "tone": "good"
+          },
+          "skipped_hint": "You'll have to call back to pin this down before quoting."
+        },
+        {
+          "id": "access",
+          "icon": "🚚",
+          "label": "Access",
+          "hint": "Can a truck + trailer reach the build spot?",
+          "reveal": {
+            "text": "Gravel drive to within 30 ft. Gate's 10 ft wide. Trailer fits.",
+            "tone": "good"
+          }
+        },
+        {
+          "id": "permits",
+          "icon": "🏛",
+          "label": "HOA / permits",
+          "hint": "Any HOA? County setback rules? Flood plain?",
+          "reveal": {
+            "text": "In Oconee County. Creek = possible wetland setback. Pull county records before quoting.",
+            "tone": "danger"
+          }
+        },
+        {
+          "id": "what-they-grow",
+          "icon": "🌿",
+          "label": "What they grow",
+          "hint": "What do they actually want to grow in it?",
+          "reveal": {
+            "text": "Heirloom tomatoes + a propagation bench. Shapes bench layout and ventilation.",
+            "tone": "good"
+          },
+          "skipped_hint": "Missed opportunity — would've shaped the ventilation + bench recommendation."
+        }
+      ],
+      "pickCount": 4,
+      "scope_read": "Quality lead. Quote with confidence. Flag permits + drainage upfront — honesty closes this one."
+    }
+  }
+}

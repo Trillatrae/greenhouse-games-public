@@ -1,0 +1,48 @@
+{
+  "routes": {
+    "home-to-patel": {
+      "from": "Athens, GA",
+      "to": "Watkinsville, GA (Patel)",
+      "distanceMi": 31,
+      "etaMin": 42,
+      "arriveAt": "10:00 AM",
+      "leaveBy": "9:18 AM",
+      "fuelFraction": 0.75,
+      "trailerNeeded": false,
+      "segments": [
+        { "state": "clear" },
+        { "state": "slow", "label": "Hwy 316 slowdown · Dacula · +8 min" },
+        { "state": "clear" }
+      ],
+      "events": [
+        {
+          "id": "stranded-driver-316",
+          "triggerAtPct": 55,
+          "kind": "roadside",
+          "title": "Pickup pulled over, hood up",
+          "scene": "Older guy. Tool belt. Waves as you drive past. No cones, no reflective triangle, no one else stopping.",
+          "choices": [
+            {
+              "id": "pull-over",
+              "label": "Pull over, see if he needs a hand",
+              "cost": "+8–15 min · karma +1 · maybe a story",
+              "tone": "good"
+            },
+            {
+              "id": "honk",
+              "label": "Honk, keep driving",
+              "cost": "0 min · no change · stay on schedule",
+              "tone": "neutral"
+            },
+            {
+              "id": "call-tow",
+              "label": "Call it in to a tow service",
+              "cost": "+1 min · costs $20 · hands-free",
+              "tone": "good"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

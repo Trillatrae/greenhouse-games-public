@@ -12,6 +12,9 @@ import { phoneRecents, voicemailDetail } from './apps/phone/phone-app.js';
 import { messagesInbox, messagesThread } from './apps/messages/messages-app.js';
 import { mailInbox, mailDetail } from './apps/mail/mail-app.js';
 import { weatherApp } from './apps/weather/weather-app.js';
+import { mapsApp } from './apps/maps/maps-app.js';
+import { driveScene } from './scenes/drive/drive-scene.js';
+import { siteVisitScoping, siteRead } from './scenes/site-visit/site-visit.js';
 import { load, save, newState } from './state/save.js';
 
 // --- state ---
@@ -55,6 +58,7 @@ function render() {
           else if (appId === 'messages') go('messages');
           else if (appId === 'mail') go('mail');
           else if (appId === 'weather') go('weather');
+          else if (appId === 'maps') go('maps');
           else toast(appId + ' — coming next phase');
         },
         onToast: toast,
@@ -82,13 +86,54 @@ function render() {
       screen = mailDetail({
         emailId: currentArgs.emailId,
         onBack: () => go('mail'),
-        onCta: () => toast('Site visit — coming in Phase 3'),
+        onCta: (emailId) => {
+          // Patel's "Book site visit" opens Maps with the Patel route.
+          if (emailId === 'patel-referral') go('maps');
+          else toast('Reply flow — coming next phase');
+        },
         onReply: () => toast('Reply composer — coming next'),
         onToast: toast,
       });
       break;
     case 'weather':
       screen = weatherApp({ onBack: () => go('home') });
+      break;
+    case 'maps':
+      screen = mapsApp({
+        routeId: 'home-to-patel',
+        onBack: () => go('home'),
+        onStartDrive: (routeId) => go('drive', { routeId }),
+      });
+      break;
+    case 'drive':
+      screen = driveScene({
+        routeId: currentArgs.routeId,
+        onEventChoice: (choiceId) => {
+          const messages = {
+            'pull-over': 'You pulled over. Karma +1.',
+            'honk': 'Kept driving. On schedule.',
+            'call-tow': 'Tow called in. $20 spent. Back on the road.',
+          };
+          toast(messages[choiceId] || 'Choice registered.');
+        },
+        onArrive: () => go('site-visit', { visitId: 'patel-watkinsville' }),
+        onToast: toast,
+      });
+      break;
+    case 'site-visit':
+      screen = siteVisitScoping({
+        visitId: currentArgs.visitId,
+        onComplete: (visitId, pickedIds) => go('site-read', { visitId, pickedIds }),
+        onBack: () => go('home'),
+      });
+      break;
+    case 'site-read':
+      screen = siteRead({
+        visitId: currentArgs.visitId,
+        pickedIds: currentArgs.pickedIds || [],
+        onContinue: () => toast('Quote write-up — coming in Phase 4'),
+        onBack: () => go('home'),
+      });
       break;
     case 'phone':
       screen = phoneRecents({

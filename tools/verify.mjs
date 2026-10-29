@@ -112,6 +112,46 @@ for (const d of (weatherFile.install_window?.days || [])) {
   }
 }
 
+// --- 1e. Routes + site visits ---
+section('routes');
+const routesFile = JSON.parse(readFileSync(resolve(ROOT, 'src/data/routes.json'), 'utf8'));
+const routes = routesFile.routes || {};
+const routeIds = Object.keys(routes);
+if (routeIds.length === 0) fail('routes: no routes defined');
+else pass(`routes: ${routeIds.length} route(s)`);
+for (const [rid, r] of Object.entries(routes)) {
+  if (!Array.isArray(r.segments)) fail(`route ${rid}: missing segments[]`);
+  for (const ev of r.events || []) {
+    if (!Array.isArray(ev.choices) || ev.choices.length !== 3) {
+      fail(`route ${rid} event ${ev.id}: must have exactly 3 choices`);
+    }
+    for (const c of ev.choices || []) {
+      if (!['good', 'warn', 'neutral', 'danger'].includes(c.tone)) {
+        fail(`route ${rid} event ${ev.id} choice ${c.id}: invalid tone "${c.tone}"`);
+      }
+    }
+  }
+}
+
+section('site-visits');
+const visitsFile = JSON.parse(readFileSync(resolve(ROOT, 'src/data/site-visits.json'), 'utf8'));
+const visits = visitsFile.visits || {};
+if (Object.keys(visits).length === 0) fail('site-visits: no visits defined');
+else pass(`site-visits: ${Object.keys(visits).length} visit(s)`);
+for (const [vid, v] of Object.entries(visits)) {
+  if (!Array.isArray(v.scoping_cards) || v.scoping_cards.length < v.pickCount) {
+    fail(`visit ${vid}: scoping_cards must be ≥ pickCount`);
+  }
+  for (const c of v.scoping_cards || []) {
+    if (!c.id || !c.label || !c.reveal) {
+      fail(`visit ${vid} card: missing id/label/reveal`);
+    }
+    if (!['good', 'warn', 'danger', 'neutral'].includes(c.reveal.tone)) {
+      fail(`visit ${vid} card ${c.id}: invalid reveal tone "${c.reveal.tone}"`);
+    }
+  }
+}
+
 // --- 2. i18n keys referenced by leads must exist in en.json ---
 section('i18n');
 const en = JSON.parse(readFileSync(resolve(ROOT, 'src/i18n/en.json'), 'utf8'));
