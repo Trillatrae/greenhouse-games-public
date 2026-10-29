@@ -1,0 +1,43 @@
+{
+  "replies": {
+    "patel-fast-reply": {
+      "fromClient": "M. Patel",
+      "fromInitials": "MP",
+      "subject": "Re: Greenhouse quote — referral from Lori McG.",
+      "receivedLabel": "8:12 PM · 2 hours after you sent",
+      "fastReply": true,
+      "body": [
+        "Hi —",
+        "Thank you for the thorough write-up. Honestly, the fact that you flagged the permit situation before we even talked numbers is why Lori sent me to you.",
+        "The price works. One question — if we end up on the hook for a wetland setback review, who handles the county side? You, me, or both?",
+        "Ready to move when you are.",
+        "— Maya"
+      ],
+      "deal_signal": [
+        { "text": "Price accepted — honesty paid", "tone": "good" },
+        { "text": "One easy question — not a negotiation, a clarification", "tone": "good" },
+        { "text": "Permit question — your answer sets expectations for the whole job", "tone": "warn" }
+      ],
+      "choices": [
+        {
+          "id": "we-handle",
+          "label": "\"We'll handle the county side.\"",
+          "sub": "+$1.5k to quote · closes fastest · owns the risk",
+          "tone": "good"
+        },
+        {
+          "id": "you-pull",
+          "label": "\"You pull the permit, we build to it.\"",
+          "sub": "keeps price · she might stall or hire separately",
+          "tone": "neutral"
+        },
+        {
+          "id": "split",
+          "label": "\"Let's split it — you pull, we file.\"",
+          "sub": "balanced · requires a short call to walk through",
+          "tone": "neutral"
+        }
+      ]
+    }
+  }
+}

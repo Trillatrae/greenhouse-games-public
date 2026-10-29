@@ -1,0 +1,35 @@
+{
+  "templates": {
+    "patel-watkinsville": {
+      "clientId": "patel-referral",
+      "clientName": "M. Patel",
+      "scopeSummary": "24x48 build · Watkinsville · creek-adjacent · raised pad + drainage trench · Oconee permit required",
+      "marketLo": 42000,
+      "marketHi": 68000,
+      "fair": 54500,
+      "step": 500,
+      "min": 38000,
+      "max": 75000,
+      "flags": [
+        {
+          "id": "permit-flag",
+          "label": "Flag the creek/permit upfront",
+          "sub": "adds $2–4k to final · builds trust",
+          "defaultOn": true
+        },
+        {
+          "id": "note-missing",
+          "label": "Note missing info (power, use)",
+          "sub": "signals thoroughness · opens callback",
+          "defaultOn": false
+        },
+        {
+          "id": "attach-reference",
+          "label": "Attach the Lori McG. reference",
+          "sub": "closes faster · uses relationship capital",
+          "defaultOn": false
+        }
+      ]
+    }
+  }
+}

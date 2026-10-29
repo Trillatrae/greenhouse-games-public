@@ -15,6 +15,9 @@ import { weatherApp } from './apps/weather/weather-app.js';
 import { mapsApp } from './apps/maps/maps-app.js';
 import { driveScene } from './scenes/drive/drive-scene.js';
 import { siteVisitScoping, siteRead } from './scenes/site-visit/site-visit.js';
+import { quoteScene } from './scenes/quote/quote-scene.js';
+import { clientReply } from './scenes/client-reply/client-reply.js';
+import { installLoadOut, installOnSite, installWalkThrough } from './scenes/install/install-scenes.js';
 import { load, save, newState } from './state/save.js';
 
 // --- state ---
@@ -156,7 +159,68 @@ function buildScreen() {
       return siteRead({
         visitId: currentArgs.visitId,
         pickedIds: currentArgs.pickedIds || [],
-        onContinue: () => toast('Quote write-up — coming in Phase 4'),
+        onContinue: (visitId) => go('quote', { templateId: visitId }),
+        onBack: () => go('home'),
+      });
+    case 'quote':
+      return quoteScene({
+        templateId: currentArgs.templateId,
+        onSend: () => {
+          toast('Quote sent. Patel will reply tonight.');
+          setTimeout(() => go('client-reply', { replyId: 'patel-fast-reply' }), 1200);
+        },
+        onBack: () => go('home'),
+        onToast: toast,
+      });
+    case 'client-reply':
+      return clientReply({
+        replyId: currentArgs.replyId,
+        onRespond: (replyId, choiceId) => {
+          const messages = {
+            'we-handle': "You own the permit side. Patel signs tonight.",
+            'you-pull': "She'll pull the permit. Price holds, timeline may slip.",
+            'split': "Split arrangement. One short call to confirm.",
+          };
+          toast(messages[choiceId] || 'Response sent.');
+          setTimeout(() => go('install-loadout', { installId: 'jefferson-repair' }), 1500);
+        },
+        onBack: () => go('home'),
+      });
+    case 'install-loadout':
+      return installLoadOut({
+        installId: currentArgs.installId,
+        onDepart: (installId) => go('install-site', { installId }),
+        onBack: () => go('home'),
+      });
+    case 'install-site':
+      return installOnSite({
+        installId: currentArgs.installId,
+        onResolveSetback: (installId, choiceId) => {
+          const messages = {
+            'straighten': 'Right way. Client sees the care. +40 min.',
+            'shim': 'Shimmed. Looks fine. Will fail next storm.',
+            'tarp': 'Tarped. Coming back with the right part.',
+          };
+          toast(messages[choiceId] || 'Setback handled.');
+        },
+        onComplete: (installId) => go('install-walkthrough', { installId }),
+        onBack: () => go('home'),
+      });
+    case 'install-walkthrough':
+      return installWalkThrough({
+        installId: currentArgs.installId,
+        onChoose: (installId, choiceId) => {
+          const messages = {
+            'walk-through': 'You walked her through it. Reviews +1 predicted.',
+            'modest': 'Modest answer. Didn\'t teach.',
+            'honest': 'Honest. She\'ll remember.',
+          };
+          toast(messages[choiceId] || 'Choice registered.');
+        },
+        onInvoice: () => {
+          toast('Invoice sent. Great day. End of day screen — coming in Phase 5.');
+          setTimeout(() => go('home'), 1600);
+        },
         onBack: () => go('home'),
       });
     default:

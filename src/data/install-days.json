@@ -1,0 +1,75 @@
+{
+  "installs": {
+    "jefferson-repair": {
+      "clientName": "Jefferson repair",
+      "pack_list": [
+        { "id": "panes", "label": "Replacement panes (2)", "why": "matches voicemail: \"glass on ground\"", "required": true },
+        { "id": "gasket", "label": "Gasket roll", "why": "always bring extra", "required": true },
+        { "id": "tools", "label": "Hand tools", "why": "standard kit", "required": true },
+        { "id": "ladder", "label": "Ladder", "why": "roof access", "required": true },
+        { "id": "tarp", "label": "Tarp + bucket", "why": "water damage mentioned", "required": true },
+        { "id": "first-aid", "label": "First aid", "why": "broken glass on site", "required": true },
+        { "id": "clips", "label": "Spare rafter clips", "why": "maybe · adds weight", "required": false },
+        { "id": "shop-vac", "label": "Shop vac", "why": "glass cleanup", "required": false }
+      ],
+      "scope_read": "You listened to the voicemail. Panes + gasket + tarp = you packed for what she described.",
+      "stages": [
+        { "id": "assess", "label": "Assess", "state": "pending" },
+        { "id": "clean", "label": "Clean out", "state": "pending" },
+        { "id": "set-glass", "label": "Set glass", "state": "pending" },
+        { "id": "seal", "label": "Seal", "state": "pending" }
+      ],
+      "setback": {
+        "stageId": "set-glass",
+        "label": "Setback",
+        "body": "Second pane's frame bent in the storm. New glass won't seat clean. Fix it or bend the pane to match?",
+        "choices": [
+          {
+            "id": "straighten",
+            "label": "Straighten the frame first",
+            "sub": "+40 min · right way · client sees you doing it",
+            "tone": "good"
+          },
+          {
+            "id": "shim",
+            "label": "Shim the glass to fit",
+            "sub": "+10 min · looks fine now · fails next storm",
+            "tone": "warn"
+          },
+          {
+            "id": "tarp",
+            "label": "Tarp it, come back with the right part",
+            "sub": "leave today · callback · client inconvenienced",
+            "tone": "neutral"
+          }
+        ]
+      },
+      "walkthrough": {
+        "askerName": "Jenny (daughter)",
+        "askerInitials": "J",
+        "question": "\"Wow. I thought y'all were just gonna slap something up there. What's with the extra time?\"",
+        "choices": [
+          {
+            "id": "walk-through",
+            "label": "Walk her through what bent",
+            "sub": "+5 min · she gets it · tells her friends",
+            "tone": "good"
+          },
+          {
+            "id": "modest",
+            "label": "\"Just doing it right\"",
+            "sub": "quick · modest · doesn't educate",
+            "tone": "neutral"
+          },
+          {
+            "id": "honest",
+            "label": "\"Shim was tempting but it'd fail\"",
+            "sub": "honest · lightly damns competitors",
+            "tone": "neutral"
+          }
+        ],
+        "education_moment": "Clients remember what you teach them more than what you build."
+      }
+    }
+  }
+}

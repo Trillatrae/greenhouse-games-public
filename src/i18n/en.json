@@ -114,5 +114,45 @@
     "scope_read_label": "Scope read",
     "not_asked_prefix": "not asked",
     "write_quote": "Write up the quote"
+  },
+  "quote": {
+    "eyebrow": "Draft quote · {client}",
+    "title": "What's it worth to you?",
+    "scope_summary_label": "Scope summary",
+    "your_price_label": "Your price",
+    "market_label": "market: ${lo}k–${hi}k",
+    "tension_lowball": "lowball",
+    "tension_fair": "fair",
+    "tension_greedy": "greedy",
+    "honesty_flags_label": "Honesty flags · include?",
+    "close_read_label": "Close read · likely outcome",
+    "close_read_body": "At ${price} with permit flag: ~{close}% close. She'll ask one question before saying yes.",
+    "save_draft": "Save draft",
+    "send_quote": "Send quote"
+  },
+  "client_reply": {
+    "eyebrow": "Re: Patel",
+    "fast_reply_tag": "FAST REPLY",
+    "deal_signal_label": "Deal signal",
+    "respond_label": "Your response"
+  },
+  "install": {
+    "load_out_eyebrow": "Load out · {client}",
+    "load_out_title": "What's on the truck?",
+    "pack_list_label": "Pack list · {count}/{max} slots",
+    "weight_warning": "truck getting heavy",
+    "load_up_cta": "Load up · head out",
+    "on_site_eyebrow": "On site · the work",
+    "on_site_title": "Jefferson · stage {stage} of {total}",
+    "progress_label": "Progress",
+    "stage_done": "done",
+    "stage_now": "now",
+    "stage_next": "next",
+    "setback_label": "Setback",
+    "wrap_eyebrow": "Wrap · walk-through",
+    "wrap_title": "Show her what you did.",
+    "how_you_answer": "How you answer",
+    "education_label": "Education moment",
+    "send_invoice": "Send invoice · head home"
   }
 }

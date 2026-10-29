@@ -152,6 +152,41 @@ for (const [vid, v] of Object.entries(visits)) {
   }
 }
 
+// --- 1f. Quotes + client replies + installs ---
+section('quotes');
+const quotesFile = JSON.parse(readFileSync(resolve(ROOT, 'src/data/quotes.json'), 'utf8'));
+const qCount = Object.keys(quotesFile.templates || {}).length;
+if (qCount === 0) fail('quotes: no templates'); else pass(`quotes: ${qCount} template(s)`);
+for (const [qid, q] of Object.entries(quotesFile.templates || {})) {
+  if (!(q.min < q.fair && q.fair < q.max)) fail(`quote ${qid}: fair must be between min and max`);
+  if (!Array.isArray(q.flags)) fail(`quote ${qid}: missing flags[]`);
+}
+
+section('client-replies');
+const repliesFile = JSON.parse(readFileSync(resolve(ROOT, 'src/data/client-replies.json'), 'utf8'));
+const rCount = Object.keys(repliesFile.replies || {}).length;
+if (rCount === 0) fail('replies: no entries'); else pass(`replies: ${rCount} entry(ies)`);
+for (const [rid, r] of Object.entries(repliesFile.replies || {})) {
+  if (!Array.isArray(r.choices) || r.choices.length !== 3) {
+    fail(`reply ${rid}: must have exactly 3 choices`);
+  }
+}
+
+section('installs');
+const installsFile = JSON.parse(readFileSync(resolve(ROOT, 'src/data/install-days.json'), 'utf8'));
+const iCount = Object.keys(installsFile.installs || {}).length;
+if (iCount === 0) fail('installs: no entries'); else pass(`installs: ${iCount} entry(ies)`);
+for (const [iid, i] of Object.entries(installsFile.installs || {})) {
+  if (!Array.isArray(i.pack_list)) fail(`install ${iid}: missing pack_list[]`);
+  if (!Array.isArray(i.stages) || i.stages.length < 2) fail(`install ${iid}: need ≥ 2 stages`);
+  if (!i.setback || !Array.isArray(i.setback.choices) || i.setback.choices.length !== 3) {
+    fail(`install ${iid}: setback needs 3 choices`);
+  }
+  if (!i.walkthrough || !Array.isArray(i.walkthrough.choices) || i.walkthrough.choices.length !== 3) {
+    fail(`install ${iid}: walkthrough needs 3 choices`);
+  }
+}
+
 // --- 2. i18n keys referenced by leads must exist in en.json ---
 section('i18n');
 const en = JSON.parse(readFileSync(resolve(ROOT, 'src/i18n/en.json'), 'utf8'));
