@@ -19,7 +19,8 @@ export function el(tag, props = {}, children = []) {
     }
   }
   for (const c of [].concat(children)) {
-    if (c == null) continue;
+    // Skip falsy children so `cond && el(...)` doesn't render "false" / "0" / etc.
+    if (c == null || c === false || c === true) continue;
     node.append(c instanceof Node ? c : document.createTextNode(String(c)));
   }
   return node;
