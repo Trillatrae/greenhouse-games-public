@@ -1,0 +1,116 @@
+{
+  "emails": [
+    {
+      "id": "patel-referral",
+      "fromName": "M. Patel",
+      "fromEmail": "mpatel.watk@…",
+      "initials": "MP",
+      "subject": "Greenhouse quote — referral from Lori McG.",
+      "preview": "Hi — Lori said you were the only person who called her back last fall. I'm looking at a 24x48 build on our property in Watkinsville, flexible on timing but…",
+      "receivedAt": "day1-06:30",
+      "receivedLabel": "6:30 AM",
+      "unread": true,
+      "tags": ["REFERRAL", "STEPH VERIFIED"],
+      "flagColor": "accent",
+      "city": "Watkinsville, GA",
+      "body": [
+        "Hi,",
+        "Lori McGalliard gave me your contact — she said you were the only person who actually called her back last fall and that her build turned out beautifully.",
+        "We've been planning a greenhouse for about two years. Our property backs onto a creek in Watkinsville and we've marked a flat spot about 40 feet from the water. Looking at a 24x48 footprint, nothing fancy but we want it done right the first time.",
+        "We're flexible on timing — ideally in the ground by spring but I'd rather wait and have you do it than rush with someone else. Budget is not the top concern.",
+        "Would love to set up a site visit when it works for you.",
+        "— Maya"
+      ],
+      "scopingCues": [
+        { "text": "\"done right\" — quality buyer, not a price shopper", "tone": "good" },
+        { "text": "\"flexible on timing\" — can slot into your calendar", "tone": "good" },
+        { "text": "creek 40 ft away — flag drainage + permit at site visit", "tone": "warn" },
+        { "text": "referral + repeat connection — close rate ~85%", "tone": "good" }
+      ],
+      "ctaLabel": "Book site visit"
+    },
+    {
+      "id": "castellanos-lowball",
+      "fromName": "R. Castellanos",
+      "fromEmail": "rcast88@…",
+      "initials": "RC",
+      "subject": "quick question about pricing",
+      "preview": "hey saw your site, what's the cheapest option you have? just need something basic for the backyard not looking to spend a lot…",
+      "receivedAt": "day0-19:48",
+      "receivedLabel": "Yesterday",
+      "unread": true,
+      "tags": ["LOW BUDGET"],
+      "flagColor": "warn",
+      "city": "",
+      "body": [
+        "hey",
+        "saw your site, what's the cheapest option you have? just need something basic for the backyard not looking to spend a lot. budget is like $2k if that works. let me know!"
+      ],
+      "scopingCues": [
+        { "text": "budget 10× below your floor — not a fit", "tone": "warn" },
+        { "text": "polite decline + a resource recs = goodwill, no revenue", "tone": "neutral" }
+      ],
+      "ctaLabel": "Reply — politely decline"
+    },
+    {
+      "id": "winkler-treehouse",
+      "fromName": "D. Winkler",
+      "fromEmail": "dwinkler@…",
+      "initials": "DW",
+      "subject": "treehouse greenhouse — concept help",
+      "preview": "We have a dead oak we want to build around. Is this something you do? Attaching reference photos…",
+      "receivedAt": "day0-14:22",
+      "receivedLabel": "Yesterday",
+      "unread": true,
+      "tags": ["UNUSUAL", "+2 PHOTOS"],
+      "flagColor": "unusual",
+      "city": "Danielsville, GA",
+      "body": [
+        "Hi,",
+        "We have a dead oak on our property that we don't want to cut down — it's a landmark on the lot. We'd love to build a greenhouse around the base and have it climb up into the lower branches. More decorative than production.",
+        "Is this something you do? I'm attaching two reference photos from Pinterest. Timeline is flexible, this is a dream project.",
+        "— Dan"
+      ],
+      "scopingCues": [
+        { "text": "unusual = margin + portfolio piece if it closes", "tone": "good" },
+        { "text": "dead oak = structural question before you quote", "tone": "warn" },
+        { "text": "\"dream project\" = patient, high-trust buyer", "tone": "good" }
+      ],
+      "ctaLabel": "Reply — ask for a site visit"
+    },
+    {
+      "id": "exaco-dealer",
+      "fromName": "Exaco Trading",
+      "fromEmail": "orders@exaco.com",
+      "initials": "E",
+      "subject": "October dealer price sheet (attached)",
+      "preview": "Attached is October's price sheet. Minor increases on the VI line, free shipping on orders over $8k.",
+      "receivedAt": "day-2-09:00",
+      "receivedLabel": "Mon",
+      "unread": false,
+      "tags": [],
+      "flagColor": "neutral",
+      "city": "",
+      "body": ["Routine business mail — not scored by the game."],
+      "scopingCues": [],
+      "ctaLabel": null
+    },
+    {
+      "id": "giorgia-books",
+      "fromName": "Giorgia (bookkeeping)",
+      "fromEmail": "giorgia@…",
+      "initials": "G",
+      "subject": "Q3 reconciliation — can you review?",
+      "preview": "Pulled the Q3 numbers into the workbook. One question on the Howard deposit — flagged in red.",
+      "receivedAt": "day-2-11:15",
+      "receivedLabel": "Mon",
+      "unread": false,
+      "tags": [],
+      "flagColor": "neutral",
+      "city": "",
+      "body": ["Routine business mail — not scored by the game."],
+      "scopingCues": [],
+      "ctaLabel": null
+    }
+  ]
+}

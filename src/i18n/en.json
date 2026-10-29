@@ -61,5 +61,14 @@
     "instinct_label": "Steph's instinct · lv {n}",
     "instinct_body": "she flagged this one for you. she's been right {track} times.",
     "empty_hint": "nothing here yet"
+  },
+  "mail": {
+    "title": "Mail",
+    "inbox": "Inbox",
+    "search_placeholder": "Search inbox",
+    "scoping_cues": "Scoping cues",
+    "no_cues": "No scoping cues on this one.",
+    "fast_reply_tag": "FAST REPLY",
+    "sent_label": "Sent"
   }
 }

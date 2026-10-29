@@ -69,6 +69,28 @@ for (const th of messagesFile.threads || []) {
   }
 }
 
+// --- 1c. Mail integrity ---
+section('mail');
+const mailFile = JSON.parse(readFileSync(resolve(ROOT, 'src/data/mail.json'), 'utf8'));
+if (!Array.isArray(mailFile.emails)) {
+  fail('mail: missing emails[] array');
+} else {
+  pass(`mail: ${mailFile.emails.length} email(s)`);
+}
+const mailIds = new Set();
+for (const em of mailFile.emails || []) {
+  if (!em.id || !em.fromName || !em.subject || !Array.isArray(em.body)) {
+    fail(`mail ${em.id || '???'}: missing required field`);
+  }
+  if (mailIds.has(em.id)) fail(`mail ${em.id}: duplicate id`);
+  mailIds.add(em.id);
+  for (const c of em.scopingCues || []) {
+    if (!['good', 'warn', 'neutral'].includes(c.tone)) {
+      fail(`mail ${em.id}: cue has invalid tone "${c.tone}"`);
+    }
+  }
+}
+
 // --- 2. i18n keys referenced by leads must exist in en.json ---
 section('i18n');
 const en = JSON.parse(readFileSync(resolve(ROOT, 'src/i18n/en.json'), 'utf8'));

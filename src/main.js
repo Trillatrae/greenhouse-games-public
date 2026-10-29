@@ -10,6 +10,7 @@ import { lockScreen } from './phone/lock-screen.js';
 import { homeScreen } from './phone/home-screen.js';
 import { phoneRecents, voicemailDetail } from './apps/phone/phone-app.js';
 import { messagesInbox, messagesThread } from './apps/messages/messages-app.js';
+import { mailInbox, mailDetail } from './apps/mail/mail-app.js';
 import { load, save, newState } from './state/save.js';
 
 // --- state ---
@@ -51,6 +52,7 @@ function render() {
         onOpenApp: (appId) => {
           if (appId === 'phone') go('phone');
           else if (appId === 'messages') go('messages');
+          else if (appId === 'mail') go('mail');
           else toast(appId + ' — coming next phase');
         },
         onToast: toast,
@@ -66,6 +68,21 @@ function render() {
       screen = messagesThread({
         threadId: currentArgs.threadId,
         onBack: () => go('messages'),
+      });
+      break;
+    case 'mail':
+      screen = mailInbox({
+        onOpenEmail: (emailId) => go('email', { emailId }),
+        onBack: () => go('home'),
+      });
+      break;
+    case 'email':
+      screen = mailDetail({
+        emailId: currentArgs.emailId,
+        onBack: () => go('mail'),
+        onCta: () => toast('Site visit — coming in Phase 3'),
+        onReply: () => toast('Reply composer — coming next'),
+        onToast: toast,
       });
       break;
     case 'phone':
