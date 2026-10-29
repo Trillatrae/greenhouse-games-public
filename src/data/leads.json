@@ -1,0 +1,67 @@
+{
+  "leads": [
+    {
+      "id": "jefferson-repair-01",
+      "name": "Unknown caller",
+      "nameKey": "callers.jefferson.name",
+      "city": "Jefferson, GA",
+      "cityKey": "callers.jefferson.location",
+      "source": "cold",
+      "tags": ["repair", "emergency"],
+      "state": "new",
+      "channel": "voicemail",
+      "receivedAt": "day1-05:42",
+      "closeRate": 0.6,
+      "thread": [
+        {
+          "kind": "voicemail",
+          "duration": 34,
+          "previewKey": "callers.jefferson.preview",
+          "fullKey": "callers.jefferson.full",
+          "reveals": {
+            "location": "off Hwy 129, Jefferson",
+            "urgency": "says emergency but hedges",
+            "scope": "repair call, water damage risk"
+          }
+        }
+      ]
+    },
+    {
+      "id": "repeat-caller-770",
+      "name": "(770) 555-0144",
+      "nameKey": "callers.repeat.number",
+      "city": "Jonesboro, GA",
+      "cityKey": "callers.repeat.location",
+      "source": "cold",
+      "tags": ["mystery", "no-voicemail"],
+      "state": "new",
+      "channel": "missed-call",
+      "receivedAt": "day1-06:38",
+      "closeRate": 0.0,
+      "thread": [
+        {
+          "kind": "missed-call",
+          "contextKey": "callers.repeat.context"
+        }
+      ]
+    },
+    {
+      "id": "spam-warranty-01",
+      "name": "Likely spam",
+      "nameKey": "callers.spam.label",
+      "city": "",
+      "source": "spam",
+      "tags": ["spam", "blocked"],
+      "state": "declined",
+      "channel": "missed-call",
+      "receivedAt": "day0-15:00",
+      "closeRate": 0.0,
+      "thread": [
+        {
+          "kind": "missed-call",
+          "detailKey": "callers.spam.detail"
+        }
+      ]
+    }
+  ]
+}

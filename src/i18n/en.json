@@ -1,0 +1,56 @@
+{
+  "app": {
+    "name": "HBGreenhouses",
+    "subtitle": "a day in the life",
+    "day_label": "Day {n} · HBGreenhouses"
+  },
+  "lock": {
+    "swipe_hint": "swipe up to open",
+    "day_hint": "no tutorial boxes · just do what feels right",
+    "tap_first": "tap me first"
+  },
+  "home": {
+    "install_window_label": "install window",
+    "install_window_open": "open through friday",
+    "today_prefix": "Today"
+  },
+  "phone": {
+    "title": "Phone",
+    "recents": "Recents",
+    "spam_filter": "Spam filter · lv 1",
+    "spam_filter_desc": "catches obvious spam",
+    "voicemail": "Voicemail",
+    "voicemail_hint": "tap to listen · unlocks location + urgency",
+    "blocked_by_spam": "Blocked by spam filter",
+    "no_voicemail": "no voicemail",
+    "unlocked_title": "Unlocked by listening",
+    "actions": {
+      "call_back": "Call back",
+      "save": "Save",
+      "block": "Block"
+    }
+  },
+  "callers": {
+    "jefferson": {
+      "name": "Unknown",
+      "location": "Jefferson, GA",
+      "preview": "yeah hi uh my green... hot house thing the glass is on the ground can you —",
+      "full": "yeah hi uh my green... hot house thing the glass is on the ground can you — hold on — [dog barking] — can you come look at it today? it's at my daughter's place off 129 the one with the [inaudible] and the water's getting in the... yeah just call me back it's an emergency i guess, i mean it's not on fire but"
+    },
+    "repeat": {
+      "number": "(770) 555-0144",
+      "location": "Jonesboro, GA",
+      "context": "3rd call this week · no voicemail"
+    },
+    "spam": {
+      "label": "Likely spam",
+      "number": "(888) 555-0100",
+      "detail": "auto home warranty"
+    }
+  },
+  "status_bar": {
+    "signal": "4G",
+    "wifi": "wifi",
+    "battery": "battery"
+  }
+}

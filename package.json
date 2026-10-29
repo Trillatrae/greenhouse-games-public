@@ -1,0 +1,17 @@
+{
+  "name": "greenhouse-games-public",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Day in the life of HBGreenhouses — public game",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "verify": "node tools/verify.mjs",
+    "smoke": "node tools/smoke.mjs"
+  },
+  "devDependencies": {
+    "vite": "^5.4.10"
+  }
+}
