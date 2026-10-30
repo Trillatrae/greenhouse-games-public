@@ -1965,18 +1965,29 @@
 }
 
 .setback-slot {
-  padding: 6px 14px;
+  padding: 6px 14px 0;
   display: flex;
   flex-direction: column;
   gap: 6px;
-  flex: 1 1 0;
-  min-height: 0;
-  overflow-y: auto;
 }
 .setback-choices {
   display: flex;
   flex-direction: column;
   gap: 6px;
+}
+
+/* Walk-through + on-site scrollable bodies */
+.walkthrough-scroll,
+.on-site-scroll {
+  flex: 1 1 0;
+  min-height: 0;
+  overflow-y: auto;
+}
+.walkthrough-footer {
+  padding: 10px 14px 14px;
+  flex-shrink: 0;
+  border-top: 0.5px solid var(--border);
+  background: var(--surface-0);
 }
 
 /* Toast for not-yet-built apps */

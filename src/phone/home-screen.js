@@ -7,7 +7,7 @@ import { t } from '../i18n/t.js';
 const APPS = [
   { id: 'phone',    label: 'Phone',    color: '#22863a', text: '#fff',   badge: 3, icon: '📞', live: true  },
   { id: 'messages', label: 'Messages', color: '#4ade80', text: '#0a0a0a', badge: 2, icon: '💬', live: true  },
-  { id: 'mail',     label: 'Mail',     color: '#f5f5f0', text: '#22863a', badge: 1, icon: '✉', live: true  },
+  { id: 'mail',     label: 'Mail',     color: '#22863a', text: '#ffffff', badge: 1, icon: '✉', live: true  },
   { id: 'weather',  label: 'Weather',  color: '#1a2744', text: '#f5f5f0', badge: 0, icon: '☁', live: true  },
   { id: 'maps',     label: 'Maps',     color: '#22863a', text: '#fff',   badge: 0, icon: '📍', live: true  },
   { id: 'camera',   label: 'Camera',   color: '#f5f5f0', text: '#0a0a0a', badge: 0, icon: '📷', live: false },

@@ -110,6 +110,7 @@ export function installOnSite({ installId, onResolveSetback, onComplete, onBack 
     // Show setback at the setback stage
     if (currentStageIndex === setbackIndex && !refs.setbackShown) {
       refs.setbackShown = true;
+      refs.setbackActive = true;
       renderSetback();
     }
   }
@@ -126,6 +127,7 @@ export function installOnSite({ installId, onResolveSetback, onComplete, onBack 
           class: 'reply-choice reply-choice-' + c.tone,
           onclick: () => {
             onResolveSetback(installId, c.id);
+            refs.setbackActive = false;
             refs.setbackSlot.replaceChildren();
             advanceStage();
           },
@@ -158,6 +160,28 @@ export function installOnSite({ installId, onResolveSetback, onComplete, onBack 
   refs.progressBar = el('div', { class: 'progress-bar-fill' });
   refs.progressLabel = el('span', { class: 'progress-label' }, '0%');
   refs.setbackSlot = el('div', { class: 'setback-slot' });
+  refs.stageEyebrow = el('div', { class: 'site-visit-city' },
+    t('install.on_site_title', { stage: 1, total: stages.length }));
+  refs.nextBtn = el('div', {
+    class: 'phone-cta phone-cta-flat',
+    style: 'margin: 0',
+    onclick: () => {
+      if (refs.setbackActive) return; // must resolve setback first
+      advanceStage();
+    },
+  }, 'Next stage ›');
+
+  // Patched stepUi: also update the eyebrow with the real current stage.
+  const originalStep = stepUi;
+  stepUi = function () {
+    originalStep();
+    refs.stageEyebrow.textContent = t('install.on_site_title', {
+      stage: Math.min(currentStageIndex + 1, stages.length),
+      total: stages.length,
+    });
+    refs.nextBtn.style.opacity = refs.setbackActive ? '0.5' : '1';
+    refs.nextBtn.style.pointerEvents = refs.setbackActive ? 'none' : 'auto';
+  };
 
   // Prime
   queueMicrotask(stepUi);
@@ -169,28 +193,25 @@ export function installOnSite({ installId, onResolveSetback, onComplete, onBack 
     ]),
     el('div', { class: 'site-visit-eyebrow-row' }, [
       el('div', { class: 'screen-eyebrow site-visit-eyebrow' }, '🔧 ' + t('install.on_site_eyebrow')),
-      el('div', { class: 'site-visit-city' },
-        t('install.on_site_title', { stage: setbackIndex + 1, total: stages.length })),
+      refs.stageEyebrow,
     ]),
-    el('div', { class: 'install-placeholder' }, [
-      el('div', { class: 'site-visit-placeholder-label' }, '🖼 ART PLACEHOLDER'),
-      el('div', { class: 'site-visit-placeholder-brief' },
-        'Trevor on ladder setting glass · you handing it up · broken pane in bucket foreground'),
-    ]),
-    el('div', { class: 'progress-row' }, [
-      el('div', { class: 'progress-top' }, [
-        el('span', { class: 'progress-label-text' }, t('install.progress_label')),
-        refs.progressLabel,
+    el('div', { class: 'on-site-scroll' }, [
+      el('div', { class: 'install-placeholder' }, [
+        el('div', { class: 'site-visit-placeholder-label' }, '🖼 ART PLACEHOLDER'),
+        el('div', { class: 'site-visit-placeholder-brief' },
+          'Trevor on ladder setting glass · you handing it up · broken pane in bucket foreground'),
       ]),
-      el('div', { class: 'progress-bar-track' }, refs.progressBar),
+      el('div', { class: 'progress-row' }, [
+        el('div', { class: 'progress-top' }, [
+          el('span', { class: 'progress-label-text' }, t('install.progress_label')),
+          refs.progressLabel,
+        ]),
+        el('div', { class: 'progress-bar-track' }, refs.progressBar),
+      ]),
+      refs.stagesRow,
+      refs.setbackSlot,
     ]),
-    refs.stagesRow,
-    refs.setbackSlot,
-    el('div', {
-      class: 'phone-cta phone-cta-flat',
-      style: 'margin: 10px 14px 14px',
-      onclick: advanceStage,
-    }, 'Next stage ›'),
+    el('div', { class: 'walkthrough-footer' }, refs.nextBtn),
   ]);
 
   return screen;
@@ -211,40 +232,44 @@ export function installWalkThrough({ installId, onInvoice, onChoose, onBack }) {
       el('div', { class: 'screen-eyebrow site-visit-eyebrow' }, '✓ ' + t('install.wrap_eyebrow')),
       el('div', { class: 'site-visit-city' }, t('install.wrap_title')),
     ]),
-    el('div', { class: 'install-placeholder' }, [
-      el('div', { class: 'site-visit-placeholder-label' }, '🖼 ART PLACEHOLDER'),
-      el('div', { class: 'site-visit-placeholder-brief' },
-        'Client in doorway of repaired structure · afternoon sun · you pointing at straightened frame'),
-    ]),
-    el('div', { class: 'site-visit-greeting' }, [
-      el('div', { class: 'site-visit-greeting-avatar', style: 'background:#a78bfa' }, wt.askerInitials),
-      el('div', { class: 'site-visit-greeting-body' }, [
-        el('div', { class: 'site-visit-greeting-name' }, wt.askerName),
-        el('div', { class: 'site-visit-greeting-line' }, wt.question),
+    el('div', { class: 'walkthrough-scroll' }, [
+      el('div', { class: 'install-placeholder' }, [
+        el('div', { class: 'site-visit-placeholder-label' }, '🖼 ART PLACEHOLDER'),
+        el('div', { class: 'site-visit-placeholder-brief' },
+          'Client in doorway of repaired structure · afternoon sun · you pointing at straightened frame'),
+      ]),
+      el('div', { class: 'site-visit-greeting' }, [
+        el('div', { class: 'site-visit-greeting-avatar', style: 'background:#a78bfa' }, wt.askerInitials),
+        el('div', { class: 'site-visit-greeting-body' }, [
+          el('div', { class: 'site-visit-greeting-name' }, wt.askerName),
+          el('div', { class: 'site-visit-greeting-line' }, wt.question),
+        ]),
+      ]),
+      el('div', { class: 'cards-counter-row' }, [
+        el('div', { class: 'cards-counter-left' }, '💬 ' + t('install.how_you_answer')),
+      ]),
+      el('div', { class: 'reply-choices', style: 'padding: 0 10px' },
+        wt.choices.map((c) =>
+          el('div', {
+            class: 'reply-choice reply-choice-' + c.tone,
+            onclick: () => onChoose(installId, c.id),
+          }, [
+            el('div', { class: 'reply-choice-label' }, c.label + ' ›'),
+            el('div', { class: 'reply-choice-sub' }, c.sub),
+          ])
+        )
+      ),
+      el('div', { class: 'callout', style: 'margin: 10px 14px 6px' }, [
+        el('div', { class: 'callout-label' }, '✦ ' + t('install.education_label')),
+        el('div', { class: 'callout-body' }, wt.education_moment),
       ]),
     ]),
-    el('div', { class: 'cards-counter-row' }, [
-      el('div', { class: 'cards-counter-left' }, '💬 ' + t('install.how_you_answer')),
+    el('div', { class: 'walkthrough-footer' }, [
+      el('div', {
+        class: 'phone-cta phone-cta-flat',
+        style: 'margin: 0',
+        onclick: () => onInvoice(installId),
+      }, '🧾 ' + t('install.send_invoice')),
     ]),
-    el('div', { class: 'reply-choices', style: 'padding: 0 10px' },
-      wt.choices.map((c) =>
-        el('div', {
-          class: 'reply-choice reply-choice-' + c.tone,
-          onclick: () => onChoose(installId, c.id),
-        }, [
-          el('div', { class: 'reply-choice-label' }, c.label + ' ›'),
-          el('div', { class: 'reply-choice-sub' }, c.sub),
-        ])
-      )
-    ),
-    el('div', { class: 'callout', style: 'margin: 10px 14px 6px' }, [
-      el('div', { class: 'callout-label' }, '✦ ' + t('install.education_label')),
-      el('div', { class: 'callout-body' }, wt.education_moment),
-    ]),
-    el('div', {
-      class: 'phone-cta phone-cta-flat',
-      style: 'margin: 6px 14px 14px',
-      onclick: () => onInvoice(installId),
-    }, '🧾 ' + t('install.send_invoice')),
   ]);
 }
