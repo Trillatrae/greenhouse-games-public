@@ -18,12 +18,20 @@ import { siteVisitScoping, siteRead } from './scenes/site-visit/site-visit.js';
 import { quoteScene } from './scenes/quote/quote-scene.js';
 import { clientReply } from './scenes/client-reply/client-reply.js';
 import { installLoadOut, installOnSite, installWalkThrough } from './scenes/install/install-scenes.js';
+import { endOfDay } from './scenes/end-of-day/end-of-day.js';
+import { recordChoice, pickClientReply, computeEndOfDay, applyDeltas, dayVoiceLine } from './state/consequences.js';
 import { load, save, newState } from './state/save.js';
 
 // --- state ---
 let state = load() || newState();
+// Migration safety: an older saved file may be missing newer fields.
+state.player = state.player || newState().player;
 state.player.name = state.player.name || 'You';
 state.player.companyName = state.player.companyName || 'HBGreenhouses';
+state.reviews = state.reviews || [];
+state.ongoingThreads = state.ongoingThreads || [];
+state.choices = state.choices || {};
+state.seenVoicemails = state.seenVoicemails || [];
 
 // --- toast ---
 let toastTimer = null;
@@ -139,6 +147,8 @@ function buildScreen() {
       return driveScene({
         routeId: currentArgs.routeId,
         onEventChoice: (choiceId) => {
+          recordChoice(state, 'driveEvent', choiceId);
+          save(state);
           const messages = {
             'pull-over': 'You pulled over. Karma +1.',
             'honk': 'Kept driving. On schedule.',
@@ -165,9 +175,14 @@ function buildScreen() {
     case 'quote':
       return quoteScene({
         templateId: currentArgs.templateId,
-        onSend: () => {
-          toast('Quote sent. Patel will reply tonight.');
-          setTimeout(() => go('client-reply', { replyId: 'patel-fast-reply' }), 1200);
+        onSend: (templateId, { price, flags }) => {
+          recordChoice(state, 'quotePrice', price);
+          recordChoice(state, 'quoteFlags', flags);
+          const replyId = pickClientReply(state);
+          recordChoice(state, 'replyPicked', replyId);
+          save(state);
+          toast('Quote sent.');
+          setTimeout(() => go('client-reply', { replyId }), 1200);
         },
         onBack: () => go('home'),
         onToast: toast,
@@ -176,9 +191,11 @@ function buildScreen() {
       return clientReply({
         replyId: currentArgs.replyId,
         onRespond: (replyId, choiceId) => {
+          recordChoice(state, 'permitResponse', choiceId);
+          save(state);
           const messages = {
-            'we-handle': "You own the permit side. Patel signs tonight.",
-            'you-pull': "She'll pull the permit. Price holds, timeline may slip.",
+            'we-handle': "You own the permit side. Deal moves.",
+            'you-pull': "You held the line. She'll decide this week.",
             'split': "Split arrangement. One short call to confirm.",
           };
           toast(messages[choiceId] || 'Response sent.');
@@ -196,6 +213,8 @@ function buildScreen() {
       return installOnSite({
         installId: currentArgs.installId,
         onResolveSetback: (installId, choiceId) => {
+          recordChoice(state, 'jeffersonSetback', choiceId);
+          save(state);
           const messages = {
             'straighten': 'Right way. Client sees the care. +40 min.',
             'shim': 'Shimmed. Looks fine. Will fail next storm.',
@@ -210,6 +229,8 @@ function buildScreen() {
       return installWalkThrough({
         installId: currentArgs.installId,
         onChoose: (installId, choiceId) => {
+          recordChoice(state, 'jeffersonWalkthrough', choiceId);
+          save(state);
           const messages = {
             'walk-through': 'You walked her through it. Reviews +1 predicted.',
             'modest': 'Modest answer. Didn\'t teach.',
@@ -218,11 +239,31 @@ function buildScreen() {
           toast(messages[choiceId] || 'Choice registered.');
         },
         onInvoice: () => {
-          toast('Invoice sent. Great day. End of day screen — coming in Phase 5.');
-          setTimeout(() => go('home'), 1600);
+          toast('Invoice sent. Day wrap-up ahead.');
+          setTimeout(() => go('end-of-day'), 1400);
         },
         onBack: () => go('home'),
       });
+    case 'end-of-day': {
+      const deltas = computeEndOfDay(state);
+      applyDeltas(state, deltas);
+      save(state);
+      const voiceLine = dayVoiceLine(state, deltas);
+      return endOfDay({
+        state,
+        deltas,
+        voiceLine,
+        onSleep: () => {
+          // Start Day 2 fresh. Keep running totals, bump day, clear turn choices.
+          state.player.dayNumber += 1;
+          state.choices = {};
+          save(state);
+          toast('Day 2 — coming next phase.');
+          setTimeout(() => go('home'), 1200);
+        },
+        onBack: () => go('home'),
+      });
+    }
     default:
       return el('div', {}, 'Unknown screen: ' + current);
   }

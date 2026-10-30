@@ -166,6 +166,11 @@ section('client-replies');
 const repliesFile = JSON.parse(readFileSync(resolve(ROOT, 'src/data/client-replies.json'), 'utf8'));
 const rCount = Object.keys(repliesFile.replies || {}).length;
 if (rCount === 0) fail('replies: no entries'); else pass(`replies: ${rCount} entry(ies)`);
+// All four Patel variants (fast, pushback, lowball-accept, ghost) must exist
+for (const required of ['patel-fast-reply', 'patel-pushback', 'patel-lowball-accept', 'patel-ghost']) {
+  if (!repliesFile.replies[required]) fail(`replies: missing variant "${required}"`);
+  else pass(`replies: ${required} present`);
+}
 for (const [rid, r] of Object.entries(repliesFile.replies || {})) {
   if (!Array.isArray(r.choices) || r.choices.length !== 3) {
     fail(`reply ${rid}: must have exactly 3 choices`);

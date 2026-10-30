@@ -1,5 +1,119 @@
 {
   "replies": {
+    "patel-pushback": {
+      "fromClient": "M. Patel",
+      "fromInitials": "MP",
+      "subject": "Re: Greenhouse quote — referral from Lori McG.",
+      "receivedLabel": "Next morning · 7:03 AM",
+      "fastReply": false,
+      "body": [
+        "Hi,",
+        "Thank you for the detailed write-up. I appreciate the honesty on the permit.",
+        "I have to be straight though — the number came in a bit above where I was. I showed it to my husband and we'd like to know if there's room to come down, or if we need to scale the footprint.",
+        "Open to a short call this week.",
+        "— Maya"
+      ],
+      "deal_signal": [
+        { "text": "She didn't say no", "tone": "good" },
+        { "text": "Price pushback — not a hard objection", "tone": "warn" },
+        { "text": "Scale-down door open — but it costs you margin either way", "tone": "warn" }
+      ],
+      "choices": [
+        {
+          "id": "we-handle",
+          "label": "\"Here's what we can trim without cutting quality.\"",
+          "sub": "lose $3–4k · keeps the job · owns the conversation",
+          "tone": "good"
+        },
+        {
+          "id": "you-pull",
+          "label": "\"Our number holds. Happy to walk you through why.\"",
+          "sub": "keeps price · she might walk · integrity intact",
+          "tone": "neutral"
+        },
+        {
+          "id": "split",
+          "label": "\"Let's schedule that call.\"",
+          "sub": "defers · you'll land somewhere in the middle",
+          "tone": "neutral"
+        }
+      ]
+    },
+    "patel-lowball-accept": {
+      "fromClient": "M. Patel",
+      "fromInitials": "MP",
+      "subject": "Re: Greenhouse quote — referral from Lori McG.",
+      "receivedLabel": "9:04 PM · reply same evening",
+      "fastReply": true,
+      "body": [
+        "Hi —",
+        "That's a great number. Honestly a bit lower than I was expecting.",
+        "We're in. Ready to move whenever you are.",
+        "— Maya"
+      ],
+      "deal_signal": [
+        { "text": "Signed instantly — she's not stupid, she knows it's a deal", "tone": "good" },
+        { "text": "You left money on the table", "tone": "warn" },
+        { "text": "Thin margin all build — if anything goes wrong you're underwater", "tone": "warn" }
+      ],
+      "choices": [
+        {
+          "id": "we-handle",
+          "label": "\"We'll handle the county side.\"",
+          "sub": "+$1.5k back · closes the gap · owns the risk",
+          "tone": "good"
+        },
+        {
+          "id": "you-pull",
+          "label": "\"You pull the permit, we build to it.\"",
+          "sub": "keeps your price · don't give more away",
+          "tone": "neutral"
+        },
+        {
+          "id": "split",
+          "label": "\"Let's split it — you pull, we file.\"",
+          "sub": "balanced · minor goodwill",
+          "tone": "neutral"
+        }
+      ]
+    },
+    "patel-ghost": {
+      "fromClient": "M. Patel",
+      "fromInitials": "MP",
+      "subject": "Re: Greenhouse quote — referral from Lori McG.",
+      "receivedLabel": "No reply — 48 hours silent",
+      "fastReply": false,
+      "body": [
+        "(Patel hasn't replied. Steph pinged her this morning — she said \"thanks, we're thinking about it.\" That usually means no.)",
+        "",
+        "The quote didn't mention the creek or the permit. She's probably running it by someone else who did."
+      ],
+      "deal_signal": [
+        { "text": "No reply = soft no", "tone": "warn" },
+        { "text": "Permit was the thing — flagging it was the trust move", "tone": "warn" },
+        { "text": "Lori's goodwill took a small hit", "tone": "warn" }
+      ],
+      "choices": [
+        {
+          "id": "we-handle",
+          "label": "Email her an addendum flagging the permit now",
+          "sub": "might save it · looks reactive",
+          "tone": "neutral"
+        },
+        {
+          "id": "you-pull",
+          "label": "Let it ride — she'll come back if she's serious",
+          "sub": "preserves pride · probably loses the job",
+          "tone": "neutral"
+        },
+        {
+          "id": "split",
+          "label": "Call her directly",
+          "sub": "best shot · costs a phone call's worth of pride",
+          "tone": "good"
+        }
+      ]
+    },
     "patel-fast-reply": {
       "fromClient": "M. Patel",
       "fromInitials": "MP",

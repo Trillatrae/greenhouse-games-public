@@ -47,6 +47,8 @@ const required = [
   'src/scenes/quote/quote-scene.js',
   'src/scenes/client-reply/client-reply.js',
   'src/scenes/install/install-scenes.js',
+  'src/scenes/end-of-day/end-of-day.js',
+  'src/state/consequences.js',
   'src/data/leads.json',
   'src/data/messages.json',
   'src/data/mail.json',
@@ -84,6 +86,9 @@ for (const needle of [
   'installLoadOut',
   'installOnSite',
   'installWalkThrough',
+  'endOfDay',
+  'recordChoice',
+  'computeEndOfDay',
   "case 'lock'",
   "case 'home'",
   "case 'phone'",
@@ -102,6 +107,7 @@ for (const needle of [
   "case 'install-loadout'",
   "case 'install-site'",
   "case 'install-walkthrough'",
+  "case 'end-of-day'",
 ]) {
   if (main.includes(needle)) pass(`main.js wires ${needle}`);
   else fail(`main.js missing ${needle}`);
@@ -135,6 +141,7 @@ const screens = [
   'src/scenes/quote/quote-scene.js',
   'src/scenes/client-reply/client-reply.js',
   'src/scenes/install/install-scenes.js',
+  'src/scenes/end-of-day/end-of-day.js',
 ];
 let hardCoded = 0;
 for (const path of screens) {
