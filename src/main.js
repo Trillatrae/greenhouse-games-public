@@ -14,7 +14,7 @@ import { mailInbox, mailDetail } from './apps/mail/mail-app.js';
 import { weatherApp } from './apps/weather/weather-app.js';
 import { mapsApp } from './apps/maps/maps-app.js';
 import { driveScene } from './scenes/drive/drive-scene.js';
-import { siteVisitScoping, siteRead } from './scenes/site-visit/site-visit.js';
+import { siteVisitScoping, siteRead, walkTheLand } from './scenes/site-visit/site-visit.js';
 import { quoteScene } from './scenes/quote/quote-scene.js';
 import { clientReply } from './scenes/client-reply/client-reply.js';
 import { installLoadOut, installOnSite, installWalkThrough } from './scenes/install/install-scenes.js';
@@ -174,12 +174,23 @@ function buildScreen() {
           if (action === 'read') toast('Trevor can grab the trailer. Replied yes.');
           else if (action === 'deferred') toast('Pulled it up later.');
         },
-        onArrive: () => go('site-visit', { visitId: 'patel-watkinsville' }),
+        onArrive: () => go('walk-the-land', { visitId: 'patel-watkinsville' }),
         onToast: toast,
+      });
+    case 'walk-the-land':
+      return walkTheLand({
+        visitId: currentArgs.visitId,
+        onComplete: (visitId, spottedIds) => {
+          recordChoice(state, 'patelSpotted', spottedIds);
+          save(state);
+          go('site-visit', { visitId, spottedIds });
+        },
+        onBack: () => go('home'),
       });
     case 'site-visit':
       return siteVisitScoping({
         visitId: currentArgs.visitId,
+        spottedIds: currentArgs.spottedIds || [],
         onComplete: (visitId, pickedIds) => go('site-read', { visitId, pickedIds }),
         onBack: () => go('home'),
       });

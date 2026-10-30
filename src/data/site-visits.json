@@ -5,6 +5,53 @@
       "clientName": "Maya Patel",
       "city": "Watkinsville, GA · back lot",
       "greeting": "\"Thanks for coming out. The spot's over here — I'll walk you back.\"",
+      "walkTheLand": {
+        "requiredSpots": 4,
+        "hotspots": [
+          {
+            "id": "creek",
+            "x": 82, "y": 25,
+            "label": "Creek line",
+            "note": "Water's close. Flood-plain question.",
+            "unlocks": "drainage"
+          },
+          {
+            "id": "south",
+            "x": 50, "y": 50,
+            "label": "South-facing stake",
+            "note": "Full sun, no trees on this side.",
+            "unlocks": "sun"
+          },
+          {
+            "id": "hose-bib",
+            "x": 25, "y": 70,
+            "label": "Hose bib on the shed",
+            "note": "Water nearby. No outlet in sight.",
+            "unlocks": "power-water"
+          },
+          {
+            "id": "gravel",
+            "x": 15, "y": 35,
+            "label": "Gravel drive + gate",
+            "note": "Access for the truck. 10 ft gate.",
+            "unlocks": "access"
+          },
+          {
+            "id": "neighbor",
+            "x": 90, "y": 60,
+            "label": "Property line fence",
+            "note": "Oconee County. Creek + county = check setbacks.",
+            "unlocks": "permits"
+          },
+          {
+            "id": "beds",
+            "x": 60, "y": 80,
+            "label": "Existing veggie beds",
+            "note": "She already grows. Ask what.",
+            "unlocks": "what-they-grow"
+          }
+        ]
+      },
       "scoping_cards": [
         {
           "id": "sun",

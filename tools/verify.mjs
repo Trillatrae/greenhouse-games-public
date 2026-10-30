@@ -158,6 +158,21 @@ for (const [vid, v] of Object.entries(visits)) {
       fail(`visit ${vid} card ${c.id}: invalid reveal tone "${c.reveal.tone}"`);
     }
   }
+  // Walk-the-land hotspots must each unlock a real card
+  if (v.walkTheLand) {
+    const cardIds = new Set((v.scoping_cards || []).map((c) => c.id));
+    for (const h of v.walkTheLand.hotspots || []) {
+      if (!cardIds.has(h.unlocks)) {
+        fail(`visit ${vid} hotspot ${h.id}: unlocks unknown card "${h.unlocks}"`);
+      }
+      if (typeof h.x !== 'number' || typeof h.y !== 'number') {
+        fail(`visit ${vid} hotspot ${h.id}: missing x/y coords`);
+      }
+    }
+    if (v.walkTheLand.hotspots.length < v.walkTheLand.requiredSpots) {
+      fail(`visit ${vid}: not enough hotspots for requiredSpots`);
+    }
+  }
 }
 
 // --- 1f. Quotes + client replies + installs ---
