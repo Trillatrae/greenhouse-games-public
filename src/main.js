@@ -241,6 +241,12 @@ function buildScreen() {
     case 'install-site':
       return installOnSite({
         installId: currentArgs.installId,
+        onGlassResult: (installId, results) => {
+          recordChoice(state, 'glassResults', results);
+          save(state);
+          if (results.perfects === 3) toast('All three perfect. Trevor noticed.');
+          else if (results.misses >= 2) toast('Rough placements. One pane cracked.');
+        },
         onResolveSetback: (installId, choiceId) => {
           recordChoice(state, 'jeffersonSetback', choiceId);
           save(state);

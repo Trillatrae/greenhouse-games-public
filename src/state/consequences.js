@@ -100,6 +100,19 @@ export function computeEndOfDay(state) {
     deltas.karma += 1; // responsive = good crew relationship
   }
 
+  // --- Set-glass minigame performance ---
+  if (c.glassResults) {
+    const g = c.glassResults;
+    if (g.perfects === 3) {
+      deltas.karma += 1;
+      deltas.lessons.push('Three clean sets. Felt like you were in a rhythm.');
+    } else if (g.misses >= 2) {
+      deltas.bank -= 150; // broken pane cost
+      deltas.energy -= 5;
+      deltas.lessons.push('Cracked a pane during install. Cost: $150 + the time.');
+    }
+  }
+
   // --- Jefferson install outcomes ---
   if (c.jeffersonSetback === 'straighten') {
     deltas.lessons.push('Took the time to do it right. The daughter saw.');

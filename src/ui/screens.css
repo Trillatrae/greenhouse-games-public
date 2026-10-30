@@ -2377,6 +2377,105 @@
   font-weight: 500;
 }
 
+/* ===== Set-glass minigame ===== */
+.sg-screen {
+  padding: 12px;
+  background: var(--surface-1);
+  border-radius: 10px;
+  margin: 6px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.sg-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+  color: var(--accent-green);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.sg-pane-label {
+  font-size: 15px;
+  color: var(--text-primary);
+  font-weight: 500;
+  text-align: center;
+}
+.sg-instructions {
+  font-size: 11px;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.sg-bar {
+  position: relative;
+  height: 48px;
+  background: var(--surface-0);
+  border-radius: 8px;
+  border: 0.5px solid var(--border-strong);
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
+}
+.sg-zone {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+}
+.sg-zone-miss { left: 0; right: 0; background: rgba(226, 75, 74, 0.15); }
+.sg-zone-ok { background: rgba(251, 191, 36, 0.3); }
+.sg-zone-perfect { background: rgba(74, 222, 128, 0.5); }
+
+.sg-cursor {
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  width: 3px;
+  background: var(--text-primary);
+  box-shadow: 0 0 10px rgba(245, 245, 240, 0.7);
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+.sg-score-row {
+  display: flex;
+  gap: 4px;
+}
+.sg-score-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border-strong);
+}
+.sg-score-perfect { background: var(--accent-green); }
+.sg-score-ok { background: var(--warning); }
+.sg-score-miss { background: var(--danger); }
+
+.sg-feedback {
+  min-height: 24px;
+  text-align: center;
+}
+.sg-flash {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  animation: flash-fade 0.65s ease-out;
+}
+.sg-flash-perfect { background: var(--accent-green); color: var(--dark); }
+.sg-flash-ok { background: var(--warning); color: var(--dark); }
+.sg-flash-miss { background: var(--danger); color: #fff; }
+
+.setback-glass-summary {
+  font-size: 10px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+  letter-spacing: 0.5px;
+}
+
 /* Toast for not-yet-built apps */
 .toast {
   position: fixed;

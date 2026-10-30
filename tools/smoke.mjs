@@ -47,6 +47,7 @@ const required = [
   'src/scenes/quote/quote-scene.js',
   'src/scenes/client-reply/client-reply.js',
   'src/scenes/install/install-scenes.js',
+  'src/scenes/install/set-glass-minigame.js',
   'src/scenes/end-of-day/end-of-day.js',
   'src/state/consequences.js',
   'src/data/leads.json',

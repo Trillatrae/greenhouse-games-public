@@ -4,6 +4,7 @@
 import { el, statusBar } from '../../ui/components.js';
 import { t } from '../../i18n/t.js';
 import installsData from '../../data/install-days.json';
+import { playSetGlass } from './set-glass-minigame.js';
 
 const SLOT_CAP = 8;
 
@@ -80,7 +81,7 @@ export function installLoadOut({ installId, onDepart, onBack }) {
 }
 
 // ===== Scene 2: On-site stages =====
-export function installOnSite({ installId, onResolveSetback, onComplete, onBack }) {
+export function installOnSite({ installId, onResolveSetback, onComplete, onBack, onGlassResult }) {
   const install = installsData.installs[installId];
   if (!install) throw new Error('install not found: ' + installId);
 
@@ -107,18 +108,29 @@ export function installOnSite({ installId, onResolveSetback, onComplete, onBack 
     refs.progressBar.style.width = progress + '%';
     refs.progressLabel.textContent = progress + '%';
 
-    // Show setback at the setback stage
+    // Show setback at the setback stage (after glass minigame runs)
     if (currentStageIndex === setbackIndex && !refs.setbackShown) {
       refs.setbackShown = true;
       refs.setbackActive = true;
-      renderSetback();
+      // Play the Set-Glass minigame first, then reveal the setback
+      refs.setbackActive = true;
+      playSetGlass(refs.setbackSlot).then((results) => {
+        if (onGlassResult) onGlassResult(installId, results);
+        renderSetback(results);
+      });
     }
   }
 
-  function renderSetback() {
+  function renderSetback(glassResults) {
+    const score = glassResults
+      ? `${glassResults.perfects} perfect · ${glassResults.oks} ok · ${glassResults.misses} missed`
+      : '';
     const setbackCard = el('div', { class: 'callout callout-danger setback-card' }, [
       el('div', { class: 'callout-label' }, '⚠ ' + t('install.setback_label')),
-      el('div', { class: 'callout-body' }, setback.body),
+      el('div', { class: 'callout-body' }, [
+        glassResults && el('div', { class: 'setback-glass-summary' }, '🪟 ' + score),
+        el('div', {}, setback.body),
+      ]),
     ]);
 
     const choices = el('div', { class: 'setback-choices' },
