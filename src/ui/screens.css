@@ -1196,6 +1196,185 @@
   opacity: 0.2;
   transition: opacity 0.3s;
 }
+
+/* ===== Steering tap zones ===== */
+.steer-zone {
+  position: absolute;
+  top: 50px;
+  bottom: 50px;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  color: var(--accent-green);
+  font-size: 28px;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.steer-zone-left { left: 0; }
+.steer-zone-right { right: 0; }
+.steer-zone:active { opacity: 0.3; background: rgba(74, 222, 128, 0.1); }
+.steer-arrow {
+  font-weight: 500;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+/* ===== Hazard callout ===== */
+.drive-hazard-slot {
+  position: absolute;
+  top: 60px;
+  left: 10px;
+  right: 10px;
+  z-index: 15;
+  pointer-events: none;
+}
+.hazard-callout {
+  padding: 10px 12px;
+  background: rgba(226, 75, 74, 0.92);
+  backdrop-filter: blur(10px);
+  border: 2px solid var(--danger);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  animation: hazard-pop 0.2s ease-out;
+  box-shadow: 0 0 20px rgba(226, 75, 74, 0.5);
+}
+.hazard-deer { background: rgba(167, 139, 250, 0.92); border-color: var(--info); box-shadow: 0 0 20px rgba(167, 139, 250, 0.5); }
+.hazard-icon { font-size: 24px; flex-shrink: 0; }
+.hazard-body { flex: 1; }
+.hazard-label {
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+.hazard-swerve {
+  font-size: 15px;
+  font-weight: 500;
+  margin-top: 2px;
+}
+.hazard-timer-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 0 0 12px 12px;
+  overflow: hidden;
+}
+.hazard-timer-fill {
+  height: 100%;
+  width: 100%;
+  background: #fff;
+}
+
+@keyframes hazard-pop {
+  from { transform: scale(0.85); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* ===== Flash feedback ===== */
+.drive-flash {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #fff;
+  animation: flash-fade 0.65s ease-out;
+  z-index: 20;
+  pointer-events: none;
+}
+.flash-clean { background: var(--accent-green); color: var(--dark); }
+.flash-hit   { background: var(--danger); }
+
+@keyframes flash-fade {
+  0%   { transform: translate(-50%, -50%) scale(0.7); opacity: 0; }
+  20%  { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+}
+
+/* ===== Camera shake ===== */
+.canvas-shake { animation: shake 0.4s ease-in-out; }
+@keyframes shake {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-4px, 2px); }
+  25% { transform: translate(3px, -3px); }
+  40% { transform: translate(-3px, -2px); }
+  55% { transform: translate(2px, 3px); }
+  70% { transform: translate(-2px, 1px); }
+  85% { transform: translate(1px, -1px); }
+}
+
+/* ===== Text interruption ===== */
+.drive-interruption-slot {
+  position: absolute;
+  top: 60px;
+  left: 10px;
+  right: 10px;
+  z-index: 12;
+}
+.drive-interruption-card {
+  padding: 10px 12px;
+  background: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(20px);
+  border: 0.5px solid var(--accent-green);
+  border-radius: 10px;
+  animation: hazard-pop 0.2s ease-out;
+}
+.interruption-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+.interruption-from {
+  font-size: 10px;
+  color: var(--accent-green);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.interruption-x {
+  font-size: 18px;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 0 4px;
+}
+.interruption-body {
+  font-size: 12px;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+.interruption-actions {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+}
+.interruption-btn {
+  flex: 1;
+  padding: 6px 10px;
+  background: var(--hb-green);
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  font-size: 11px;
+  cursor: pointer;
+}
+.interruption-btn.secondary {
+  background: var(--surface-1);
+  color: var(--text-primary);
+  border: 0.5px solid var(--border-strong);
+}
 .drive-event-hint-icon {
   width: 24px;
   height: 24px;

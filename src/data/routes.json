@@ -14,6 +14,16 @@
         { "state": "slow", "label": "Hwy 316 slowdown · Dacula · +8 min" },
         { "state": "clear" }
       ],
+      "hazards": [
+        { "atPct": 15, "kind": "deer",    "label": "DEER · RIGHT SHOULDER", "swerve": "left",  "window": 1800 },
+        { "atPct": 32, "kind": "pothole", "label": "POTHOLE · LEFT LANE",   "swerve": "right", "window": 1600 },
+        { "atPct": 72, "kind": "debris",  "label": "DEBRIS · DEAD CENTER",  "swerve": "left",  "window": 1500 }
+      ],
+      "interruption": {
+        "atPct": 45,
+        "from": "Steph",
+        "preview": "yo trevor just texted — can he borrow the trailer sat?"
+      },
       "events": [
         {
           "id": "stranded-driver-316",

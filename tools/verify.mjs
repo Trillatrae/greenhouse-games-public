@@ -131,6 +131,14 @@ for (const [rid, r] of Object.entries(routes)) {
       }
     }
   }
+  for (const h of r.hazards || []) {
+    if (typeof h.atPct !== 'number' || h.atPct < 0 || h.atPct > 100) {
+      fail(`route ${rid} hazard: atPct must be 0–100`);
+    }
+    if (!['left', 'right'].includes(h.swerve)) {
+      fail(`route ${rid} hazard: swerve must be "left" or "right"`);
+    }
+  }
 }
 
 section('site-visits');

@@ -156,6 +156,24 @@ function buildScreen() {
           };
           toast(messages[choiceId] || 'Choice registered.');
         },
+        onHazard: (kind, result) => {
+          if (kind === '__summary') {
+            // Record overall drive performance
+            recordChoice(state, 'driveClean', result.clean);
+            recordChoice(state, 'driveHits', result.hits);
+            save(state);
+            if (result.hits === 0) toast(`Clean drive — ${result.clean}/${result.clean} nailed.`);
+            else if (result.clean >= result.hits) toast(`Mostly clean — ${result.clean} clean, ${result.hits} hit.`);
+            else toast(`Rough drive — ${result.hits} hits · +${result.penalty - 4} min.`);
+          }
+          // Silent per-hazard — the flash animation is enough feedback
+        },
+        onInterruption: (action) => {
+          recordChoice(state, 'stephInterruption', action);
+          save(state);
+          if (action === 'read') toast('Trevor can grab the trailer. Replied yes.');
+          else if (action === 'deferred') toast('Pulled it up later.');
+        },
         onArrive: () => go('site-visit', { visitId: 'patel-watkinsville' }),
         onToast: toast,
       });

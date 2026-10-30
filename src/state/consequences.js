@@ -84,6 +84,22 @@ export function computeEndOfDay(state) {
     deltas.bank -= 20;
   }
 
+  // --- Drive hazards (clean driving earns karma, hits eat energy) ---
+  if (typeof c.driveClean === 'number') {
+    if (c.driveClean === 3) {
+      deltas.karma += 1;
+      deltas.lessons.push('Clean drive, no scrapes. Trevor would be proud.');
+    } else if (c.driveHits >= 2) {
+      deltas.energy -= 10;
+      deltas.lessons.push('Rough drive. The trailer rattled all day.');
+    }
+  }
+
+  // --- Steph interruption ---
+  if (c.stephInterruption === 'read') {
+    deltas.karma += 1; // responsive = good crew relationship
+  }
+
   // --- Jefferson install outcomes ---
   if (c.jeffersonSetback === 'straighten') {
     deltas.lessons.push('Took the time to do it right. The daughter saw.');
