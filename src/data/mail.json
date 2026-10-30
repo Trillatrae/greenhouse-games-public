@@ -79,6 +79,36 @@
       "ctaLabel": "Reply — ask for a site visit"
     },
     {
+      "id": "hollister-family",
+      "fromName": "A. Hollister",
+      "fromEmail": "a.hollister@…",
+      "initials": "AH",
+      "subject": "greenhouse — long-term build for the family",
+      "preview": "Hi — my wife and I have been talking about this for a couple of years. We want to grow more of our own food, and we want something that'll be here for our kids and theirs. Not a kit from the hardware store…",
+      "receivedAt": "day0-18:40",
+      "receivedLabel": "Yesterday",
+      "unread": true,
+      "tags": ["RESILIENT BUYER", "LONG-TERM"],
+      "flagColor": "accent",
+      "city": "Winterville, GA",
+      "body": [
+        "Hi,",
+        "My wife and I have been talking about this for a couple of years. We're not big preppers or anything, but between the weather getting weirder and the grocery store being what it is, we want to grow more of our own food — and we want something that's going to be here for our kids and theirs.",
+        "Not a kit from the hardware store. Something built right. We've looked at Victorians, we've looked at hoop houses, we don't really know yet. We'd like to grow year-round if we can.",
+        "Property is 3 acres in Winterville. Plenty of sun, well water, no HOA.",
+        "Would you be open to coming out and walking the land with us? We're not in a hurry — want to do this once and do it right.",
+        "— Aaron"
+      ],
+      "scopingCues": [
+        { "text": "\"here for our kids and theirs\" — thinking in decades, not seasons", "tone": "good" },
+        { "text": "\"grocery store being what it is\" — reading resilience without saying it", "tone": "good" },
+        { "text": "\"not big preppers\" — they are, they just don't name it", "tone": "good" },
+        { "text": "year-round grow goal — commercial-grade build, Victorian or better", "tone": "good" },
+        { "text": "\"not in a hurry\" + \"do it right\" — this is the HBGreenhouses buyer", "tone": "good" }
+      ],
+      "ctaLabel": "Book site visit"
+    },
+    {
       "id": "exaco-dealer",
       "fromName": "Exaco Trading",
       "fromEmail": "orders@exaco.com",
