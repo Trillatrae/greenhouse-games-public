@@ -2496,3 +2496,20 @@
   from { opacity: 0; transform: translate(-50%, 10px); }
   to { opacity: 1; transform: translate(-50%, 0); }
 }
+
+/* ===== Inline SVG scenes (replace ART PLACEHOLDER grey boxes) ===== */
+.scene-frame {
+  margin: 6px 14px 10px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 0.5px solid var(--border-strong);
+  background: #0a0a0a;
+  aspect-ratio: 3 / 2;
+  display: block;
+  position: relative;
+}
+.scene-frame .inline-scene {
+  width: 100%;
+  height: 100%;
+  display: block;
+}

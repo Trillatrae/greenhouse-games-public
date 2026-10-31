@@ -5,6 +5,7 @@
 import { el, statusBar } from '../../ui/components.js';
 import { t } from '../../i18n/t.js';
 import siteVisitsData from '../../data/site-visits.json';
+import { sceneBackyard } from '../../ui/scenes.js';
 
 // ===== Scene A: Walk the land =====
 export function walkTheLand({ visitId, onComplete, onBack }) {
@@ -196,11 +197,7 @@ export function siteVisitScoping({ visitId, onComplete, onBack, spottedIds = [] 
         '📍 ' + t('site_visit.eyebrow', { client: visit.clientName.split(' ').slice(-1)[0] })),
       el('div', { class: 'site-visit-city' }, visit.city),
     ]),
-    el('div', { class: 'site-visit-placeholder' }, [
-      el('div', { class: 'site-visit-placeholder-label' }, '🖼 ART PLACEHOLDER'),
-      el('div', { class: 'site-visit-placeholder-brief' },
-        'Watkinsville back lot · creek visible 40ft out · morning overcast · client walking toward truck'),
-    ]),
+    el('div', { class: 'scene-frame' }, [sceneBackyard()]),
     el('div', { class: 'site-visit-greeting' }, [
       el('div', { class: 'site-visit-greeting-avatar' }, visit.clientInitials),
       el('div', { class: 'site-visit-greeting-body' }, [

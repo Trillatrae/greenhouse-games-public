@@ -5,6 +5,7 @@ import { el, statusBar } from '../../ui/components.js';
 import { t } from '../../i18n/t.js';
 import installsData from '../../data/install-days.json';
 import { playSetGlass } from './set-glass-minigame.js';
+import { sceneLoadOut, sceneOnSite, sceneWalkThrough } from '../../ui/scenes.js';
 
 const SLOT_CAP = 8;
 
@@ -61,11 +62,7 @@ export function installLoadOut({ installId, onDepart, onBack }) {
         '🛻 ' + t('install.load_out_eyebrow', { client: install.clientName })),
       el('div', { class: 'site-visit-city' }, t('install.load_out_title')),
     ]),
-    el('div', { class: 'install-placeholder' }, [
-      el('div', { class: 'site-visit-placeholder-label' }, '🖼 ART PLACEHOLDER'),
-      el('div', { class: 'site-visit-placeholder-brief' },
-        'HBG shop bay · open tailgate · Trevor loading · early morning light'),
-    ]),
+    el('div', { class: 'scene-frame' }, [sceneLoadOut()]),
     el('div', { class: 'cards-counter-row' }, [refs.slotCounter, refs.weightWarning]),
     refs.grid,
     el('div', { class: 'callout', style: 'margin: 6px 14px' }, [
@@ -208,11 +205,7 @@ export function installOnSite({ installId, onResolveSetback, onComplete, onBack,
       refs.stageEyebrow,
     ]),
     el('div', { class: 'on-site-scroll' }, [
-      el('div', { class: 'install-placeholder' }, [
-        el('div', { class: 'site-visit-placeholder-label' }, '🖼 ART PLACEHOLDER'),
-        el('div', { class: 'site-visit-placeholder-brief' },
-          'Trevor on ladder setting glass · you handing it up · broken pane in bucket foreground'),
-      ]),
+      el('div', { class: 'scene-frame' }, [sceneOnSite()]),
       el('div', { class: 'progress-row' }, [
         el('div', { class: 'progress-top' }, [
           el('span', { class: 'progress-label-text' }, t('install.progress_label')),
@@ -245,11 +238,7 @@ export function installWalkThrough({ installId, onInvoice, onChoose, onBack }) {
       el('div', { class: 'site-visit-city' }, t('install.wrap_title')),
     ]),
     el('div', { class: 'walkthrough-scroll' }, [
-      el('div', { class: 'install-placeholder' }, [
-        el('div', { class: 'site-visit-placeholder-label' }, '🖼 ART PLACEHOLDER'),
-        el('div', { class: 'site-visit-placeholder-brief' },
-          'Client in doorway of repaired structure · afternoon sun · you pointing at straightened frame'),
-      ]),
+      el('div', { class: 'scene-frame' }, [sceneWalkThrough()]),
       el('div', { class: 'site-visit-greeting' }, [
         el('div', { class: 'site-visit-greeting-avatar', style: 'background:#a78bfa' }, wt.askerInitials),
         el('div', { class: 'site-visit-greeting-body' }, [
